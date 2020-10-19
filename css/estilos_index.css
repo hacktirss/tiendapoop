@@ -1,0 +1,138 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 15/06/2020, 10:25:08 AM
+    Author     : Tirso bautista Anaya <tirso.bautista@detisa.com.mx>
+*/
+
+body{
+    width: 100%;
+    height: 95%;
+    background: url("../lib/fondo_gris.png");
+}
+
+#inicio{
+    width: 100%;
+    min-width: 900px;
+    height: 80%;
+    min-height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#firstTable{
+    width: 40%;
+    height: 100%;
+    text-align: center;
+    border: 0px solid gray;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px 0 25px 0 ;
+}
+#firstTable .header{
+    width: 100%;
+    vertical-align: top;
+    display: inline-table;
+}
+#firstTable .header div{
+    display: inline-table;
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+#firstTable .body{
+    width: 100%;
+    height: 50%;    
+}
+
+#boxTable{
+    width: 350px;
+    height: 220px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    background-color: white;
+    color: #243775;
+    text-align: center;
+    border: 1px solid #CACACA;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px 0px gray;
+}
+
+#boxTable span{
+    width: 98%;
+    white-space: pre-line;
+    line-height: 10px;
+}
+
+#boxTable span a{
+    text-align: right;
+    text-decoration: none;
+    color: #BACBC2;
+}
+
+#boxTable label{
+    width: 150px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 15px;
+    display: inline;
+}
+
+#boxTable span input[type=text],input[type=password]{
+    width: 180px;
+    height: 25px;
+    text-align: center;
+    font-size: 16px;
+    box-shadow: 2px 2px 2px 0px #DADADA;
+    background-color: #bacbc2;
+    color: white;
+    font-weight: bold;
+    display: inline;
+}
+#boxTable span span{
+    display: inline;
+}
+
+#boxTable span input[type=submit]{
+    height: 25px;
+    min-width: 150px;
+    color: #243775;
+    box-shadow: 2px 2px 2px 0px #DADADA;
+}
+
+#boxTable span input[type=submit]:hover{
+    color: #ff6600;
+}
+
+.titulo{
+    text-align: center;
+    padding-bottom: 15px;
+    font-size: 30px;
+}
+
+.iconos{
+    padding-top: 5px;
+    padding-right: 5px;
+    text-align: right;
+}
+
+.iconos i{
+    font-size: 30px;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+#Msj{
+    font-size: 11px;
+}

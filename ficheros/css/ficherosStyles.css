@@ -1,0 +1,105 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 26/09/2019, 05:39:06 PM
+    Author     : 3PX89LA_RS5
+*/
+
+#Principal{
+    width: 95%;
+    min-width: 1100px;
+    margin-right: auto;
+    margin-left: auto;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+}
+
+#Barra{
+    width: 100%;
+    height: 25px;
+    background-color: #DADADA;
+    font-size: 12px;
+    padding-left: 10px;
+}
+
+#Barra a{
+    color: #0055FF;
+    text-decoration: none;
+}
+
+#Barra i{
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size:24px;
+}
+
+#Barra a:hover{
+    color: #333;
+    text-decoration: none;
+}
+
+#Tabla table{
+    width: 100%;
+    border-collapse: collapse; 
+    border: 1px solid #066;
+}
+
+#Tabla table tr:first-child{
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    color: #FFF;
+    text-decoration: none;
+    background-color: #F63;
+    border: 1px solid #066;
+    text-align: center;
+}
+
+#Tabla table tr td{
+    font-family: Tahoma, Geneva, sans-serif;
+    padding-left: 5px;
+}
+
+#Tabla table tr td:first-child{
+    text-align: center;
+    width: 170px;
+}
+
+#Tabla table tr td:last-child{
+    text-align: center;
+}
+
+#Tabla tr:nth-child(odd) {
+    background-color: #FFFFFF;
+}
+
+#Tabla tr:nth-child(odd):hover {
+    background-color: #B9CDEE ;
+}
+
+#Tabla tr:nth-child(even) {
+    background-color: #E1E1E1;
+}
+
+#Tabla tr:nth-child(even):hover {
+    background-color: #B9CDEE;
+}
+
+#Tabla .enlace a{
+    /*color: #0055FF;*/
+    text-decoration: none;
+}
+
+#Tabla .enlace a:hover{
+    /*color: #333;*/
+    text-decoration: none;
+}
+
+#Tabla td:nth-child(2) i{
+    /*color: #0055FF;*/
+    font-size: 14px;
+    padding-left: 5px;
+    padding-right: 5px;
+}

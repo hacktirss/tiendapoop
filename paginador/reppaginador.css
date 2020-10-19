@@ -1,0 +1,42 @@
+.paginador {
+    text-align: center; 
+    width: 25%;
+    margin: auto;
+    table-layout: auto;
+    border-collapse: collapse;
+}
+.paginador td {
+    color: #243775;
+    padding: 2px;
+    max-width: 150px;
+    /*width: 50px;*/
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    vertical-align: middle;
+    text-decoration: none;
+}
+.paginador th {
+    background-color: #FF6633;
+    color: white;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    height: 20px;
+    text-align: center;
+}
+.paginador tr:nth-child(even) {
+    background-color: #E1E1E1;
+}
+.paginador tr:nth-child(odd) {
+    background-color: #FFFFFF;
+}
+.paginador tr:hover {
+    background-color: #B9CDEE;
+}
+.paginador tr td:hover {
+    overflow: visible; 
+    white-space: normal;
+    height:auto;
+}
+

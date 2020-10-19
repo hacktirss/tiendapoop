@@ -1,0 +1,118 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18/02/2019, 01:51:34 PM
+    Author     : Tirso
+*/
+
+/*Estilos para tabla de datos*/
+
+#TablaDatos{
+    text-align: left;
+    width: 100%;
+    min-height: 300px;
+}
+#TablaDatos > table{
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 1px var(--SecondaryColor);
+    border-collapse: collapse;
+}
+#TablaDatos > table > thead > tr > td, th{
+    font-family: var(--FontFamilyDefault);
+    font-size: var(--FontSizeDefault);
+    font-weight: bold;
+    color: white;
+    background-color: var(--MainColor);
+    border: solid 1px var(--SecondaryColor);
+    height: 14px;
+    width: 14px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#TablaDatos > table > thead > tr > td,th > div{
+    text-decoration: none;
+    font-family: var(--FontFamilyDefault);
+    font-size: var(--FontSizeDefault);
+    font-weight: bold;
+    color: white;
+}
+
+#TablaDatos > table > tbody > tr > td{
+    font-family: var(--FontFamilyDefault);
+    font-size: var(--FontSizeDefault);
+    color: #243775;
+    border: solid 1px var(--SecondaryColor);
+    height: 18px;
+    word-wrap: normal;
+    /*min-width: 80px;*/
+    max-width: 150px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#TablaDatos > table > tbody > tr > td:hover{
+    overflow: visible; 
+    white-space: normal;
+    cursor: pointer;
+}
+#TablaDatos > table > tbody > tr > td img{
+    width: 18px;
+    height: 18px;
+}
+#TablaDatos > table > tbody > tr > td > a{
+    font-size: 13px;
+    color: #999;
+    text-decoration: none;
+}
+#TablaDatos > table > tbody > tr > td > a:hover{
+    text-decoration: none;
+}
+#TablaDatos > table > tbody > tr:nth-child(odd) {
+    background-color: var(--GrisClaro);
+}
+#TablaDatos > table > tbody > tr:nth-child(even) {
+    background-color: white;
+}
+#TablaDatos > table > tbody > tr:nth-child(odd):hover {
+    background-color: var(--Hover);
+}
+#TablaDatos > table > tbody > tr:nth-child(even):hover {
+    background-color: var(--Hover);
+}
+#TablaDatos .centrar{
+    text-align: center;
+    vertical-align: middle;
+}
+#TablaDatos .moneda{
+    text-align: right;
+}
+
+#Encabezado{
+    width: 100%;   
+    margin-bottom: 10px;
+}
+#Encabezado > table{
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    border: 1px solid gray;
+    border-collapse: separate;
+}
+#Encabezado > table > tbody > tr > td{
+    font-family: var(--FontFamilyDefault);
+    font-size: 14px;
+    background-color: var(--GrisFuerte);
+    padding-left: 10px;
+}
+#Encabezado > table > tbody > tr > td > span{
+    font-weight: bold;
+}

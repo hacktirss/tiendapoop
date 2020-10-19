@@ -1,0 +1,311 @@
+
+
+html,body{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    min-width: 1100px;
+    margin: 0;
+}
+
+#Header{
+    width: 100%;
+}
+#Header > table{
+    width: 100%;
+    border: 0; 
+    border-collapse: collapse;
+    height: 90px;
+}
+#Header > table .logo{
+    width: 200px;
+    height: 80px;
+}
+#Header > table > tbody > tr > td{
+    color: var(--SecondaryColor);
+    font-family: var(--FontFamilyDefault);
+    font-size: var(--FontSizeDefault);
+}
+#Header > table > tbody > tr > td .titulo{
+    font-size: 18px;
+    font-weight: bold;
+}
+#Header .barraMenus{
+    font-family: var(--FontFamilyDefault);
+    font-size: var(--FontSizeDefault);
+    color: var(--SecondaryColor);
+    width: 100%;
+    border-bottom: 2px solid gray;
+    border-collapse: collapse;
+    height: 30px;
+    background: url("../menu/center_tile.gif");
+    display: inline-block;
+}
+#Header .barraMenus > div{
+    display: inline-block;
+    height: 30px;
+    vertical-align: bottom;
+    margin-right: 10px;
+}
+#Header .barraMenus > div > a{
+    font-family: var(--FontFamilyDefault);
+    font-size: var(--FontSizeDefault);
+    color: var(--SecondaryColor);
+    font-weight: bold;
+    color: #FF6633;
+    text-decoration: none;
+}
+#Header .barraMenus > div > a:hover{
+    color: var(--MainColor);
+}
+
+#Container{
+    width: 100%;
+}
+
+#Container .barraTitulo{
+    font-family: var(--FontFamilyDefault);
+    font-size: var(--FontSizeDefault);
+    color: var(--SecondaryColor);
+    padding-top: 3px;
+    width: 100%;
+    height: 30px;
+    display: inline-block;
+}
+#Container .barraTitulo > div{
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.numeros_pagina {
+    font-family: var(--FontFamilyDefault);
+    font-size: 11px;
+    font-weight: bold;
+    color: #F63;
+    text-decoration: none;
+}
+.numeros_pagina:hover {
+    font-family: var(--FontFamilyDefault);
+    font-size: 11px;
+    font-weight: bold;
+    color:#3e5a8f;
+    text-decoration: none;
+}
+.nombre_cliente {
+    font-family: var(--FontFamilyDefault);
+    font-size: var(--FontSizeDefault);
+    color: #3e5a8f;
+    text-decoration: none;
+}
+
+.content_txt {
+    text-decoration: none;
+    font-family: var(--FontFamilyDefault);
+    font-size: var(--FontSizeDefault);
+    color: #535353;
+}
+
+
+.titulo_blanco {
+    font-family: var(--FontFamilyDefault);
+    font-size: 13px;
+    font-weight: bold;
+    color: #FFF;
+    text-decoration: none;
+    background-color: #F63;
+    height: 14px;
+    width: 14px;
+    padding-left: 10px;
+}
+
+.seleccionar {
+    font-family: var(--FontFamilyDefault);
+    font-size: 13px;
+    color: #999;
+    text-decoration: none;
+}
+.seleccionar:hover{
+    font-family: var(--FontFamilyDefault);
+    font-size: 13px;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.titulos_tabla {
+    font-family: var(--FontFamilyDefault);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #FFF;
+    text-decoration: none;
+}
+.texto_tablas {
+    font-family: var(--FontFamilyDefault);
+    font-size: 13px;
+    color: #243775;
+    text-decoration: none;
+}
+#button {
+    font-family: var(--FontFamilyDefault);
+    font-size: 10px;
+    color: #FFF;
+    text-decoration: none;
+    background-color: #099;
+    border: thin solid #066;
+}
+.Footer {
+    font-family: var(--FontFamilyDefault);
+    font-size: 10px;
+    color: #FFF;
+}
+
+html,body {
+    height:100%;
+}
+#container {
+    min-height: 90%;
+    position: relative;
+}
+
+
+<!-- 
+@media print { 
+    .oculto {display:none} 
+} -->
+
+
+/* Tabla de datos */
+
+#TablasContainer{
+    width: 95%;
+    min-height: 280px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+#TablasContainer > table{
+    width: 100%;
+    border-collapse: separate;
+    font-family: var(--FontFamilyDefault);
+    font-size: 12px;
+    color: var(--ColorLetter);
+}
+#TablasContainer > table > thead > tr > td{
+    height: 25px;
+    background-color: white;
+    border-bottom: solid 2px gray;
+    font-weight: bold;
+    text-align: center;
+}
+#TablasContainer > table > thead > tr > th > a{
+    text-decoration: none;
+    color: var(--ColorLetter);
+    font-weight: bold;
+}
+#TablasContainer > table > thead > tr.titulo > th{
+    background-color: var(--GrisClaro);
+    border-bottom: solid 2px white;
+}
+#TablasContainer > table > tbody > tr > td{
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: left;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#TablasContainer > table > tbody > tr > td:hover{
+    overflow: visible; 
+    white-space: normal;
+    cursor: pointer;
+}
+#TablasContainer > table > tbody > tr:nth-child(odd) {
+    background-color: var(--GrisClaro);
+}
+
+#TablasContainer > table > tbody > tr:nth-child(even) {
+    background-color: white;
+}
+
+#TablasContainer > table > tbody > tr:nth-child(odd):hover {
+    background-color: var(--Hover);
+    cursor: pointer;
+}
+
+#TablasContainer > table > tbody > tr:nth-child(even):hover {
+    background-color: var(--Hover);
+    cursor: pointer;
+}
+#TablasContainer > table > tbody > tr.titulos > td{
+    height: 25px;
+    background-color: white;
+    border-bottom: solid 2px gray;
+    font-weight: bold;
+    text-align: center;
+}
+#TablasContainer > table > tbody > tr.subtotal > td{
+    height: 25px;
+    background-color: white;
+    border-top: solid 2px gray;
+    font-weight: bold;
+    text-align: right;
+    padding-bottom: 10px;
+}
+#TablasContainer > table > tbody > tr.subtotal2 > td{
+    height: 25px;
+    background-color: white;
+    font-weight: bold;
+    text-align: right;
+    padding-bottom: 10px;
+    color: var(--MainColor);
+}
+#TablasContainer > table > tbody > tr.titulo > td{
+    height: 25px;
+    background-color: var(--GrisClaro);
+    font-weight: bold;
+    text-align: right;
+    text-align: center;
+}
+#TablasContainer > table > tbody > tr.subtitulo > td{
+    height: 25px;
+    background-color: white;
+    font-weight: bold;
+    text-align: right;
+    text-align: center;
+}
+#TablasContainer > table > tbody > tr > td.numero,.moneda{
+    text-align: right;
+}
+#TablasContainer > table > tbody > tr > td.negrita{
+    font-weight: bold;
+}
+#TablasContainer > table > tbody > tr > td.remarcar{
+    background-color: #F7FF7C;
+}
+#TablasContainer > table > tbody > tr > td.moneda:before{
+    content: "$ ";
+}
+#TablasContainer > table > tfoot > tr > td{
+    height: 25px;
+    background-color: white;
+    /*    border-top: solid 2px gray;*/
+    font-weight: bold;
+    text-align: right;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#TablasContainer > table > tfoot > tr:first-child > td{
+    border-top: solid 2px gray;
+    padding-bottom: 10px;
+}
+#TablasContainer > table > tfoot > tr > td.moneda:before{
+    content: "$ ";
+}
+#TablasContainer .centrar{
+    text-align: center;
+}

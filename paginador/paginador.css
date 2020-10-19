@@ -1,0 +1,190 @@
+/*
+Estilos del módulo de paginación
+Created on : 28 ago 2019, 13:25:06
+Author     : Rolando Esquivel Villafaña
+*/
+
+.paginador {
+    text-align: center; 
+    width: 100%;
+    margin: auto;
+    table-layout: auto;
+    border-collapse: collapse;
+}
+.paginador td {
+    color: var(--SecondaryColor);
+    padding: 2px;
+    max-width: 150px;
+    /*width: 50px;*/
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    vertical-align: middle;
+    text-decoration: none;
+}
+.paginador th {
+    background-color: var(--MainColor);
+    color: white;
+    font-family: var(--FontFamilyDefault);
+    font-size: 10px;
+    font-weight: bold;
+    height: 20px;
+    text-align: center;
+}
+.paginador tr:nth-child(even) {
+    background-color: var(--GrisClaro);
+}
+.paginador tr:nth-child(odd) {
+    background-color: white;
+}
+.paginador tr:hover {
+    background-color: var(--Hover);
+}
+.paginador tr td:hover {
+    overflow: visible; 
+    white-space: normal;
+    height:auto;
+}
+
+.clickable {
+    cursor: pointer;
+}
+.choosed {
+    min-width: 50px;
+}
+
+table[width="1010"] {
+    width: 100% !important;
+}
+table[width="1011"] {
+    width: 78% !important;
+}
+
+.tablelink {
+    font-family: var(--FontFamilyDefault);
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--MainColor);
+    padding-right: 5px;
+    text-decoration: none;
+}
+.tablelink:hover{
+    color: var(--SecondaryColor);
+    text-decoration: none;
+}
+.pagerfooter {
+    width: 100%;
+    font-family: var(--FontFamilyDefault);
+    font-size: 11px;
+    color: var(--SecondaryColor);
+}
+.pagerfooter .message {
+    color: #FF6633; 
+    font-size: 14px; 
+    font-weight: bold; 
+    text-align: center;
+}
+.indexer {
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    display: block;
+}
+.indexer ul {
+    float: none;
+}
+.indexer ul li {
+    display: inline-table;
+    width: 35px;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+}
+.indexer ul li a, .indexer ul li span {
+    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+}
+.indexer ul li a {
+    font-size: 14px;
+    font-weight: bold;
+    color: #606c84;
+    transition: color .2s cubic-bezier(0.55, 0, 0.55, 0.2) , font-size .2s cubic-bezier(0.55, 0, 0.55, 0.2) ;
+}
+.indexer ul li span {
+    font-size: 14px;
+    font-weight: bolder;
+    color: #F63;
+}
+.indexer ul li a:hover {
+    font-size: 18px;
+    background-color: var(--Hover);
+    color: #F63;
+    border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+}
+.indexer i.fa {
+    font-size: 16px;
+    display: inline-block;
+    padding: 1px;
+}
+.indexer i.fa:hover {
+    font-size: 24px;
+}
+.quicksearch{
+    width: 100%;
+}
+.quicksearch table{
+    font-family: var(--FontFamilyDefault);
+    font-size: var(--FontSizeDefault);
+    text-align: center;
+    color: var(--SecondaryColor);
+    width: 100%; 
+    border: 0px;
+    border-collapse: collapse; 
+    background-color: var(--GrisFuerte);
+}
+.quicksearch table tbody tr td{
+    border: 1px solid white;
+    padding: 3px;
+    max-width: 80px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.quicksearch table tbody tr td:first-child {
+    max-width: 130px;
+}
+.quicksearch table tbody tr td input[type="search"]{
+    width: 95%;
+    padding-left: 5px;
+}
+.quicksearch table tbody tr td input[type="submit"]{
+    color: var(--MainColor);
+    font-weight: bold;
+}
+.quicksearch table tbody tr td input[type="submit"]:hover{
+    background-color: var(--MainColor);
+    color: white;
+}
+
+#TablaHeader{
+    width: 100%;
+    margin-bottom: 10px;
+    border: 2px solid var(--MainColor);
+}
+#TablaHeader table{
+    font-family: var(--FontFamilyDefault);
+    font-size: var(--FontSizeDefault);
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--GrisFuerte);
+}
+#TablaHeader table tbody tr td{
+    border: 2px solid white;
+    padding-left: 5px;
+}

@@ -1,0 +1,66 @@
+
+#TablaDatos{
+    width: 10%;
+    min-width: 220px;
+    min-height: 380px;
+    text-align: center;
+}
+#TablaDatos table{
+    border-collapse: separate; 
+    border: 0px solid #066;
+    width: 138%;
+    text-align: left;
+}
+#TablaDatos table thead tr td{
+    border-spacing: 1px;
+    border-collapse: separate;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 5px;
+    font-weight: bold;
+    background-color: #006666;
+    color: white;
+    height: 50px;
+    padding: 4px;
+}
+#TablaDatos table tbody tr td{
+    border-spacing: 1px;
+    border-collapse: separate;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    color: #55514E;
+    height: 18px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#TablaDatos table tbody tr td a{
+    color: #006666;
+    text-decoration: none;
+}
+#TablaDatos table tbody tr td a:hover{
+    color: #FF6633;
+    text-decoration: none;
+}
+#TablaDatos table tbody tr imgs{
+    width: 15px;
+    height: 15px;
+}
+
+#TablaDatos table tbody tr imgs:hover{
+    width: 18px;
+    height: 18px;
+}
+#TablaDatos table tbody tr td input[type="submit"]{
+    color: #006633;
+}
+#TablaDatos table tbody tr:nth-child(odd) {
+    background-color: #DADADA;
+}
+#TablaDatos table tbody tr:nth-child(even) {
+    background-color: #FFFFFF;
+}
+#TablaDatos table tbody tr:nth-child(odd):hover {
+    background-color: #ACECAA;
+}
+#TablaDatos table tbody tr:nth-child(even):hover {
+    background-color: #ACECAA;
+}

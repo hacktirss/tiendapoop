@@ -1,0 +1,78 @@
+
+
+#menu {  
+    position: relative;
+    background: transparent;
+    cursor: default;
+    margin-top: 0px;
+    padding-top: 0px;
+    vertical-align: middle;
+}
+#menu > ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+}
+#menu > ul > li {
+    list-style: none;
+    position: relative;
+    float: left;
+    padding-left: 6px;    
+    padding-top: 5px;
+}
+#menu > ul > li > a {    
+    text-decoration: none;
+    position: relative;
+    font-family: var(--FAMILY_TEXT);
+    font-size: 11px;
+    color: var(--MAIN_COLOR_TEXT);
+}
+
+#menu > ul > li> div {
+    border-color: var(--MAIN_COLOR_TEXT);
+    list-style: none;
+    display: none;
+    position: absolute;
+    z-index: 1;
+    background: #F7F7F7;
+}
+#menu > ul > li:hover > div {
+    display: table;
+    color: #00906C;
+    -webkit-border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    -khtml-border-radius: 7px 7px 7px 7px;
+    border-radius: 7px 7px 7px 7px;
+}
+#menu > ul > li > div > ul {
+    list-style: none;
+    display: table-cell;
+    padding-top: 3px;
+    padding-right: 6px;
+    padding-left: 6px;
+}
+#menu > ul > li ul + ul {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#menu > ul > li ul > li > a {
+    text-decoration: none;
+    padding: 4px;
+    min-width: 100px;        
+    display: block;
+    white-space: nowrap;
+    position: relative;
+    z-index: 1;
+    color: var(--SecondaryColor);
+    font-family: var(--FontFamilyDefault);
+    font-size: 11px;
+}
+#menu > ul > li ul > li > a:hover {
+    padding:2px;        
+    color: var(--MainColor);
+    background-color: var(--Hover);
+}

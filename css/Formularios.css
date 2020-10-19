@@ -1,0 +1,181 @@
+/* 
+    Created on : 3/04/2020, 05:56:00 PM
+    Author     : Tirso bautista Anaya <tirso.bautista@detisa.com.mx>
+*/
+
+#Formularios{
+    width: 100%;
+}
+#Formularios > table{
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#Formularios > table > tbody > tr > td{
+    width: 50%;
+    vertical-align: top;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#Formularios > table > tbody > tr > td > table{
+    width: 100%;
+    border-collapse: collapse; 
+    border: 1px solid #999;
+    background-color: #F1F1F1;
+}
+#Formularios > table > tbody > tr > td > table > tbody > tr > td{
+    font-family: var(--FontFamilyDefault);
+    font-size: 12px;
+    color: #243775;
+}
+#Formularios > table > tbody > tr > td > table > tbody > tr > td input,button{
+    font-family: var(--FontFamilyDefault);
+    font-size: 12px;
+    color: #243775;
+    width: 100%;
+    margin-right: 5px;
+    padding-left: 5px;
+}
+#Formularios > table > tbody > tr > td > table > tbody > tr > td select{
+    font-family: var(--FontFamilyDefault);
+    font-size: 12px;
+    color: #243775;
+    width: 100%;
+    margin-right: 5px;
+    padding-left: 5px;
+}
+#Formularios > table > tbody > tr > td > table > tbody > tr > td textarea{
+    font-family: var(--FontFamilyDefault);
+    font-size: 12px;
+    color: #243775;
+    width: 100%;
+    margin-right: 5px;
+    padding-left: 5px;
+    min-height: 100px;
+}
+#Formularios > table > tbody > tr > td > table > tbody > tr > td input[type="submit"], button{
+    background-color: #FF6633;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 3px 3px 3px 3px;
+    cursor: pointer;
+}
+#Formularios > table > tbody > tr > td > table > tbody > tr > td span, label{
+/*    margin-right: 5px;
+    display: inline;*/
+}
+#Formularios > table > tbody > tr > td > table > tbody > tr > td input[type="radio"]{
+    width: 50%;
+    cursor: pointer;
+    display: inline;
+}
+#Formularios > table > tbody > tr > td > table > tbody > tr > td input[type="submit"]:hover, button:hover{
+    color: #243775;
+}
+#Formularios .titulos{
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+    background-color: #FF6633;
+    height: 14px;
+    text-align: left;
+    padding-left: 10px;
+}
+#Formularios .enlaces{
+    color: #FF6633;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px gray;
+}
+#Formularios .enlaces:hover{
+    color: white;
+}
+#Formularios .align-left{
+    text-align: left;
+    padding-left: 10px;
+}
+#Formularios .align-right{
+    text-align: right;
+    padding-right: 10px;
+}
+#Formularios .align-center{
+    text-align: center;
+}
+.disabled{
+    cursor: not-allowed;
+}
+.disabled:hover{
+    cursor: not-allowed;
+}
+
+
+#FormularioChecks{
+    width: 100%;
+}
+#FormularioChecks form table{
+    width: 100%;
+}
+#FormularioChecks form table tbody tr td{
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 11px;
+    color: #55514e;
+    border: solid 2px white;
+    height: 20px;
+}
+#FormularioChecks form table tbody tr td input[type="submit"]{
+    background-color: #FF6633;
+    width: 100%;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 3px 3px 3px 3px;
+    cursor: pointer;
+}
+#FormularioChecks form table tbody tr td input[type="submit"]:hover{
+    background-color: #FF6633;
+}
+#FormularioChecks form table tbody tr td .micheck[type="checkbox"]{
+    padding-right: 10px;
+    width: 14px;
+    height: 14px;
+}
+#FormularioChecks form table tbody tr td .tachar{
+    text-decoration: line-through;
+}
+
+.parpadea {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    color: #F63;
+    padding-right: 5px;
+    text-decoration: none;
+
+    animation-name: parpadeo;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+    -webkit-animation-name:parpadeo;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+}
+
+@-moz-keyframes parpadeo{  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes parpadeo {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@keyframes parpadeo {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
