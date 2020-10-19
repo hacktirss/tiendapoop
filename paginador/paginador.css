@@ -24,7 +24,7 @@ Author     : Rolando Esquivel Villafaña
 }
 .paginador th {
     background-color: var(--MainColor);
-    color: white;
+    color: var(--FourthColor);
     font-family: var(--FontFamilyDefault);
     font-size: 10px;
     font-weight: bold;
@@ -35,7 +35,7 @@ Author     : Rolando Esquivel Villafaña
     background-color: var(--GrisClaro);
 }
 .paginador tr:nth-child(odd) {
-    background-color: white;
+    background-color: var(--FourthColor);
 }
 .paginador tr:hover {
     background-color: var(--Hover);
@@ -64,12 +64,12 @@ table[width="1011"] {
     font-family: var(--FontFamilyDefault);
     font-size: 13px;
     font-weight: bold;
-    color: var(--MainColor);
+    color: var(--SecondaryColor);
     padding-right: 5px;
     text-decoration: none;
 }
 .tablelink:hover{
-    color: var(--SecondaryColor);
+    color: var(--MainColor);
     text-decoration: none;
 }
 .pagerfooter {
@@ -169,7 +169,7 @@ table[width="1011"] {
 }
 .quicksearch table tbody tr td input[type="submit"]:hover{
     background-color: var(--MainColor);
-    color: white;
+    color: var(--FourthColor);
 }
 
 #TablaHeader{

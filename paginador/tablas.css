@@ -27,7 +27,7 @@ and open the template in the editor.
     font-size: var(--FontSizeDefault);
     font-weight: bold;
     color: white;
-    background-color: var(--MainColor);
+    background-color: var(--SecondaryColor);
     border: solid 1px var(--SecondaryColor);
     height: 14px;
     width: 14px;
@@ -69,14 +69,15 @@ and open the template in the editor.
 }
 #TablaDatos > table > tbody > tr > td > a{
     font-size: 13px;
-    color: #999;
+    color: var(--SecondaryColor);
     text-decoration: none;
 }
 #TablaDatos > table > tbody > tr > td > a:hover{
+    color: var(--MainColor);
     text-decoration: none;
 }
 #TablaDatos > table > tbody > tr:nth-child(odd) {
-    background-color: var(--GrisClaro);
+    background-color: #f4d9c6;
 }
 #TablaDatos > table > tbody > tr:nth-child(even) {
     background-color: white;

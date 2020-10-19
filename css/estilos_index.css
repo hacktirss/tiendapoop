@@ -27,10 +27,10 @@ body{
     height: 100%;
     text-align: center;
     border: 0px solid gray;
-    background-color: white;
+    background-color: var(--FourthColor);
     margin-left: auto;
     margin-right: auto;
-    border-radius: 25px 0 25px 0 ;
+    border-radius: 35px 35px 35px 35px;
 }
 #firstTable .header{
     width: 100%;
@@ -42,6 +42,10 @@ body{
     text-align: center;
     margin-top: 20px;
 }
+#firstTable .header img{
+    width: 350px;
+    height: 220px;
+}
 
 
 #firstTable .body{
@@ -50,17 +54,17 @@ body{
 }
 
 #boxTable{
-    width: 350px;
-    height: 220px;
+    width: 300px;
+    height: 200px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 50px;
-    background-color: white;
-    color: #243775;
+    background-color: var(--FourthColor);
+    color: var(--SecondaryColor);
     text-align: center;
-    border: 1px solid #CACACA;
+    border: 1px solid var(--GrisFuerte);
     border-radius: 10px;
-    box-shadow: 5px 5px 5px 0px gray;
+    box-shadow: 5px 5px 5px 0px var(--GrisFuerte);
 }
 
 #boxTable span{
@@ -69,46 +73,35 @@ body{
     line-height: 10px;
 }
 
-#boxTable span a{
-    text-align: right;
-    text-decoration: none;
-    color: #BACBC2;
-}
-
-#boxTable label{
-    width: 150px;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 15px;
-    display: inline;
-}
-
-#boxTable span input[type=text],input[type=password]{
+#boxTable span input[type="text"],input[type="password"]{
     width: 180px;
-    height: 25px;
+    height: 35px;
     text-align: center;
     font-size: 16px;
-    box-shadow: 2px 2px 2px 0px #DADADA;
-    background-color: #bacbc2;
-    color: white;
+    box-shadow: 2px 2px 2px 0px var(--FourthColor);
+    background-color: var(--MainColor);
+    color: var(--FourthColor);
     font-weight: bold;
     display: inline;
+    border-radius: 10px;
 }
 #boxTable span span{
     display: inline;
 }
 
-#boxTable span input[type=submit]{
-    height: 25px;
+#boxTable span button{
+    height: 30px;
     min-width: 150px;
-    color: #243775;
-    box-shadow: 2px 2px 2px 0px #DADADA;
+    color: var(--FourthColor);
+    background-color: var(--MainColor);
+    box-shadow: 2px 2px 2px 0px var(--GrisClaro);
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
 }
-
-#boxTable span input[type=submit]:hover{
-    color: #ff6600;
+#boxTable span button:hover{
+    background-color: var(--ThirdColor);
 }
-
 .titulo{
     text-align: center;
     padding-bottom: 15px;

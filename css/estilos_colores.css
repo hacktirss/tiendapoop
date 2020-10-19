@@ -11,11 +11,14 @@ and open the template in the editor.
 @charset "utf-8";
 
 :root{
-    --MainColor: #FF6633;
-    --SecondaryColor: #243775;
+    --MainColor: #931a25;
+    --SecondaryColor: #e97171;
+    --ThirdColor: #ffcb8e;
+    --FourthColor: #f5efef;
+    
     --GrisClaro: #E1E1E1;
     --GrisFuerte: #CACACA;
-    --Hover: #B9CDEE;
+    --Hover: #fa7f72;
     --BorderColorButton: gray;
     --ColorLetter: #3E5A8F;
     --ColorLinks: #243775;

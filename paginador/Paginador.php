@@ -377,7 +377,7 @@ class Paginador {
                 . "<tr>"
                 . "<td rowspan='2' align='left'>B&uacute;squeda r&aacute;pida:<br>"
                 . "<div style='position: relative;'>"
-                . "<input type='search' size='20' class='text' placeholder='Ingresar palabra(s)' name='criteria' id='autocomplete' autofocus/>"
+                . "<input type='search' size='20' class='search' placeholder='Ingresar palabra(s)' name='criteria' id='autocomplete' autofocus/>"
                 . "</div>"
                 . "<div id='autocomplete-suggestions'></div>"
                 . "</td>"

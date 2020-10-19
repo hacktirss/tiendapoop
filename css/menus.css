@@ -27,13 +27,13 @@
 #menu > ul > li > a {    
     text-decoration: none;
     position: relative;
-    font-family: var(--FAMILY_TEXT);
+    font-family: var(--FontFamilyDefault);
     font-size: 11px;
-    color: var(--MAIN_COLOR_TEXT);
+    color: var(--MainColor);
 }
 
 #menu > ul > li> div {
-    border-color: var(--MAIN_COLOR_TEXT);
+    border-color: var(--MainColor);
     list-style: none;
     display: none;
     position: absolute;
@@ -67,7 +67,7 @@
     white-space: nowrap;
     position: relative;
     z-index: 1;
-    color: var(--SecondaryColor);
+    color: var(--MainColor);
     font-family: var(--FontFamilyDefault);
     font-size: 11px;
 }

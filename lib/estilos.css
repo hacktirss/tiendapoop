@@ -3,13 +3,15 @@
 html,body{
     width: 100%;
     height: 100%;
-    background-color: white;
     min-width: 1100px;
     margin: 0;
+    background-color: var(--FourthColor);
 }
 
 #Header{
     width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 #Header > table{
     width: 100%;
@@ -22,7 +24,7 @@ html,body{
     height: 80px;
 }
 #Header > table > tbody > tr > td{
-    color: var(--SecondaryColor);
+    color: var(--MainColor);
     font-family: var(--FontFamilyDefault);
     font-size: var(--FontSizeDefault);
 }
@@ -33,12 +35,13 @@ html,body{
 #Header .barraMenus{
     font-family: var(--FontFamilyDefault);
     font-size: var(--FontSizeDefault);
-    color: var(--SecondaryColor);
+    font-weight: bold;
+    color: var(--MainColor);
     width: 100%;
     border-bottom: 2px solid gray;
     border-collapse: collapse;
     height: 30px;
-    background: url("../menu/center_tile.gif");
+    background-color: var(--ThirdColor);
     display: inline-block;
 }
 #Header .barraMenus > div{
@@ -50,9 +53,8 @@ html,body{
 #Header .barraMenus > div > a{
     font-family: var(--FontFamilyDefault);
     font-size: var(--FontSizeDefault);
-    color: var(--SecondaryColor);
     font-weight: bold;
-    color: #FF6633;
+    color: var(--MainColor);
     text-decoration: none;
 }
 #Header .barraMenus > div > a:hover{

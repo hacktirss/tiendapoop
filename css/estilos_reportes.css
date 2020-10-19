@@ -11,7 +11,7 @@ and open the template in the editor.
 @charset "utf-8";
 
 body {
-    background-color: white;  
+    background-color: var(--FourthColor);  
     width: 95%;
     min-width: 750px;
     margin-left: auto;
@@ -23,7 +23,7 @@ body {
     text-align: center;    
 }
 #Header > table > tbody> tr > td {
-    font-family: Tahoma, Geneva, sans-serif;
+    font-family: var(--FontFamilyDefault);
     font-size: 14px;
     color: var(--ColorLetter);
 }
@@ -44,13 +44,13 @@ body {
 #Reportes > table{
     width: 100%;
     border-collapse: separate;
-    font-family: Tahoma, Geneva, sans-serif;
+    font-family: var(--FontFamilyDefault);
     font-size: 12px;
     color: var(--ColorLetter);
 }
 #Reportes > table > thead > tr > th{
     height: 25px;
-    background-color: white;
+    background-color: var(--FourthColor);
     border-bottom: solid 2px gray;
     font-weight: bold;
     text-align: center;
@@ -83,7 +83,7 @@ body {
 }
 
 #Reportes > table > tbody > tr:nth-child(even) {
-    background-color: white;
+    background-ccolor: var(--FourthColor);
 }
 
 #Reportes > table > tbody > tr:nth-child(odd):hover {
@@ -97,14 +97,14 @@ body {
 }
 #Reportes > table > tbody > tr.titulos > td{
     height: 25px;
-    background-color: white;
+    background-ccolor: var(--FourthColor);
     border-bottom: solid 2px gray;
     font-weight: bold;
     text-align: center;
 }
 #Reportes > table > tbody > tr.subtotal > td{
     height: 25px;
-    background-color: white;
+    background-ccolor: var(--FourthColor);
     border-top: solid 2px gray;
     font-weight: bold;
     text-align: right;
@@ -112,7 +112,7 @@ body {
 }
 #Reportes > table > tbody > tr.subtotal2 > td{
     height: 25px;
-    background-color: white;
+    background-ccolor: var(--FourthColor);
     font-weight: bold;
     text-align: right;
     padding-bottom: 10px;
@@ -127,7 +127,7 @@ body {
 }
 #Reportes > table > tbody > tr.subtitulo > td{
     height: 25px;
-    background-color: white;
+    background-ccolor: var(--FourthColor);
     font-weight: bold;
     text-align: right;
     text-align: center;
@@ -146,7 +146,7 @@ body {
 }
 #Reportes > table > tfoot > tr > td{
     height: 25px;
-    background-color: white;
+    background-ccolor: var(--FourthColor);
     /*    border-top: solid 2px gray;*/
     font-weight: bold;
     text-align: right;
@@ -155,7 +155,7 @@ body {
 }
 #Reportes > table > tfoot > tr > th{
     height: 25px;
-    background-color: white;
+    background-ccolor: var(--FourthColor);
     border-bottom: solid 2px gray;
 }
 #Reportes > table > tfoot > tr:first-child > td{
@@ -180,19 +180,20 @@ body {
     border: 2px solid white;
 }
 #Footer > form table > tbody > tr > td{
-    font-family: Tahoma, Geneva, sans-serif;
+    font-family: var(--FontFamilyDefault);
     font-size: 13px;
-    color: var(--ColorLetter);
+    color: var(--MainColor);
 }
 #Footer > form table > tbody > tr > td > input, select{
-    font-family: Tahoma, Geneva, sans-serif;
+    font-family: var(--FontFamilyDefault);
     font-size: 13px;
-    color: var(--ColorLetter);
+    color: var(--MainColor);
+    background-color: var(--GrisClaro);
 }
 #Footer > form table > tbody > tr > td > span > input[type="submit"]{
-    font-family: Tahoma, Geneva, sans-serif;
+    font-family: var(--FontFamilyDefault);
     font-size: 13px;
-    color: var(--ColorLetter);
+    color: var(--MainColor);
     min-width: 80px;
     padding-right: 10px;
 } 
@@ -200,9 +201,9 @@ body {
     color: var(--Naranja);
 }
 .exportar{
-    font-family: Tahoma, Geneva, sans-serif;
+    font-family: var(--FontFamilyDefault);
     font-size: 13px;
-    color: var(--ColorLetter);
+    color: var(--MainColor);
     width: 80px;
     border: 1px solid var(--ColorLetter);
     background-color: buttonface;
