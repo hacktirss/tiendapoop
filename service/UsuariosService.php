@@ -22,6 +22,7 @@ if ($request->hasAttribute("Boton") && $request->getAttribute("Boton") !== utils
     $Msj = utils\Messages::MESSAGE_NO_OPERATION;
 
     $usuarioVO = new UsuarioVO();
+    $usuarioVO->setCia($usuarioSesion->getCia());
     $usuarioVO->setId($sanitize->sanitizeInt("busca"));
     if (is_numeric($usuarioVO->getId())) {        
         $usuarioVO = $usuarios->getUser($usuarioVO->getId());
@@ -36,8 +37,7 @@ if ($request->hasAttribute("Boton") && $request->getAttribute("Boton") !== utils
             $usuarioVO->setUsername($sanitize->sanitizeString("Uname"));
             $usuarioVO->setMail($sanitize->sanitizeEmail("Mail"));
             $usuarioVO->setPassword($sanitize->sanitizeString("Passwd"));
-            $usuarioVO->setTeam($sanitize->sanitizeString("Team"));
-            $usuarioVO->setLevel($sanitize->sanitizeInt("Level"));
+            //$usuarioVO->setLevel($sanitize->sanitizeInt("Level"));
             $usuarioVO->setStatus($sanitize->sanitizeString("Status"));
             $usuarioVO->setCreation(date("Y-m-d", strtotime(date("Y-m-d"))));
             //$usuarioVO->setLastlogin("0000-00-00 00:00:00");

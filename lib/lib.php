@@ -219,7 +219,7 @@ function cZeros($Vlr, $nLen) {
 
 function regresar($Return) {
     ?>
-<p align="left"><a class="enlaces" href="<?= $Return ?>"><i class="icon fa fa-lg fa-arrow-circle-left"></i> Regresar</a></p>
+    <p align="left"><a class="enlaces" href="<?= $Return ?>"><i class="icon fa fa-lg fa-arrow-circle-left"></i> Regresar</a></p>
     <?php
 }
 

@@ -72,7 +72,7 @@ $self = utils\HTTPUtils::getEnvironment()->getAttribute("PHP_SELF");
                     $("#Boton").val("Agregar");
                 } else {
                     $("#Boton").val("Actualizar");
-                    if(status === "Cerrada" || status === "Cancelada") {
+                    if (status === "Cerrada" || status === "Cancelada") {
                         $("#Boton").hide();
                     }
                 }
@@ -102,8 +102,8 @@ $self = utils\HTTPUtils::getEnvironment()->getAttribute("PHP_SELF");
                 $("#BotonD").click(function (e) {
 
                 });
-                
-                $("#DataEquipo").change(function(){
+
+                $("#DataEquipo").change(function () {
                     var texto = $(this).val();
                     var value = texto.split("|");
                     console.log($.trim(value[0]));
@@ -144,7 +144,7 @@ $self = utils\HTTPUtils::getEnvironment()->getAttribute("PHP_SELF");
 
                                                     <div class="row no-gutters">
                                                         <div class="col-3 align-right">Concepto:</div>
-                                                        <div class="col-9"><input type="text" name="Concepto" id="Concepto" onkeyup="mayus(this);" placeholder="Motivo de la orden"></div>
+                                                        <div class="col-9"><input type="text" name="Concepto" id="Concepto" onkeyup="mayus(this);" placeholder="Descripcion de la venta"></div>
                                                     </div>
 
                                                     <div class="row no-gutters">                                               
@@ -286,62 +286,9 @@ $self = utils\HTTPUtils::getEnvironment()->getAttribute("PHP_SELF");
                                                     </div>
                                                 </td>
                                             </tr>
-
-                                            <tr>
-                                                <td class="titulos" colspan="100%">Agregar Equipos</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="100%">
-                                                    <div class="container">
-
-                                                        <?php
-                                                        if ($request->hasAttribute("BotonE") && $request->getAttribute("BotonE") === utils\Messages::OP_NO_OPERATION_VALID) :
-                                                            $Equipo = trim(explode("|", $request->getAttribute("Equipo"))[0]);
-                                                            $equipoDAO = new EquipoDAO();
-                                                            $equipoVO = $equipoDAO->retrieve($Equipo, "id", $UsuarioSesion->getCia());
-                                                            ?>
-                                                            <div class="row no-gutters">
-                                                                <div class="col-2 align-right">Equipo:</div>
-                                                                <div class="col-7"><span><?= $equipoVO->getId() . " | " . $equipoVO->getMarca() . " | " . $equipoVO->getModelo() ?></span></div>
-                                                                <div class="col-1"></div>
-                                                                <div class="col-2"><a class="enlaces" href="nota_pro_se.php"> cancelar </a></div>
-                                                            </div>
-
-                                                            <div class="row no-gutters">                                    
-                                                                <div class="col-3 align-right">Precio unitario:</div>
-                                                                <div class="col-3"><input type="text" name="Costo" placeholder=" $" value="<?= $equipoVO->getPrecio() ?>"></div>
-                                                                <div class="col-1"></div>
-                                                                <div class="col-3"><input type="submit" name="BotonE" id="BotonE" value="Agregar"></div>
-                                                            </div>                                                                                                                         
-                                                            <input type="hidden" name="Equipo" value="<?= $Equipo ?>">
-                                                            <input type="hidden" name="Cnt" value="1">
-                                                        <?php else : ?>
-                                                            <div class="row no-gutters">
-                                                                <div class="col-2 align-right">Equipo:</div>                                                                
-                                                                <div class="col-8">
-                                                                    <input list="listaequipos" placeholder="Equipo a buscar" name="Equipo" id="Equipo">
-                                                                    <datalist id="listaequipos">
-                                                                        <?php
-                                                                        foreach ($listEquipos as $equipoVO) :
-                                                                            if ($equipoVO instanceof EquipoVO) :
-                                                                                $label =  $equipoVO->getId() . " | " . $equipoVO->getModelo() . " | " . $equipoVO->getMarca();
-                                                                                ?>
-                                                                                <option value="<?= $label ?>" data-id="<?= $equipoVO->getId() ?>"/>
-                                                                                <?php
-                                                                            endif;
-                                                                        endforeach;
-                                                                        ?>
-                                                                    </datalist>
-                                                                </div>
-                                                                <div class="col-2"><input type="submit" name="BotonE" value="Enviar"></div>
-                                                            </div>
-                                                        <?php endif; ?>
-
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                            
                                         <?php endif; ?>
-
+                                            
                                         <tr>
                                             <td colspan="100%">
                                                 <p style="text-align: center;color: red; font-weight: bold;"><?= $Msj ?></p>

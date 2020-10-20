@@ -64,13 +64,7 @@ $btnGenerar = " <span class='generar' id='Generar'>Generar contraseña</span>";
                                                     <div class="row no-gutters">
                                                         <div class="col-3 align-right">Correo:</div>
                                                         <div class="col-9"><input type="text" name="Mail" id="Mail" placeholder="correo@dominio.com"></div>
-                                                    </div>
-                                                    <div class="row no-gutters">                                               
-                                                        <div class="col-md-3 align-right">Perfil</div>
-                                                        <div class="col-md-3">
-                                                            <?php ListasCatalogo::listaNombreCatalogo("Team", "PERFILES", "", " required"); ?>
-                                                        </div>
-                                                    </div>                                                   
+                                                    </div>                                                                                                
                                                     <div class="row no-gutters">
                                                         <div class="col-3 align-right">Usuario:</div>
                                                         <div class="col-3"><input type="text" name="Uname" id="Uname" placeholder="Nombre de usuario"></div>
@@ -206,6 +200,7 @@ $btnGenerar = " <span class='generar' id='Generar'>Generar contraseña</span>";
 
                 $("#form1").submit(function (event) {
                     if (busca === "NUEVO") {
+                        bntFormSubmit = 0;
                         if (!validaPassword($("#Passwd"))) {
                             event.preventDefault();
                             $("#Passwd").focus();
@@ -214,9 +209,11 @@ $btnGenerar = " <span class='generar' id='Generar'>Generar contraseña</span>";
                 });
 
                 $("#BotonD").click(function (event) {
+                    bntFormSubmit = 0;
                     if (!validaPassword($("#Passwd"))) {
                         event.preventDefault();
                         $("#Passwd").focus();
+                        bntFormSubmit = 0;
                     }
                 });
             });

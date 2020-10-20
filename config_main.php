@@ -38,7 +38,7 @@ $GRetencionIva = .1067;       // lo mando en factor el 10.67%
 <script type="text/javascript" src="paginador/predictive_search.js"></script>
 
 <script>
-    
+    var bntFormSubmit = 0;
 
     function wingral(url) {
         window.open(url, 'wingeneral', 'status=no,tollbar=yes,scrollbars=yes,menubar=no,width=1000,height=600,left=10,top=50');
@@ -69,7 +69,7 @@ $GRetencionIva = .1067;       // lo mando en factor el 10.67%
     }
     
     $(document).ready(function(){
-        var bntFormSubmit = 0;
+        
         $(".fa-file-pdf-o").css({"color": "red"});
         $(".fa-file-code-o").css({"color": "green"});
         $(".fa-file-pdf-o").prop("title", "Obtener PDF");

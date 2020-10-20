@@ -145,6 +145,14 @@
 #FormularioChecks form table tbody tr td .tachar{
     text-decoration: line-through;
 }
+#FormularioChecks .enlaces{
+    color: var(--SecondaryColor);
+    text-decoration: none;
+    text-shadow: 1px 1px 1px gray;
+}
+#FormularioChecks .enlaces:hover{
+    color: white;
+}
 
 .parpadea {
     font-family: Tahoma, Geneva, sans-serif;
