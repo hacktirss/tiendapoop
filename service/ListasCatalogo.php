@@ -117,5 +117,31 @@ class ListasCatalogo {
         $html .= "</select>";
         echo $html;
     }
+    
+    public static function getCategorias($nombreSelect, $opciones = "") {
+        $mysqli = getConnection();
+        $ciaSesion = getSessionCia();
+        $selectPosiciones = "SELECT id value,CONCAT(id, ' | ', nombre) descripcion FROM categorias WHERE 1 = 1 AND categorias.cia = " . $ciaSesion->getId() . " ORDER BY id ASC;";
+        $result = $mysqli->query($selectPosiciones);
+        $html = "<select name='" . $nombreSelect . "' id='" . $nombreSelect . "'  $opciones>";
+        while ($rg = $result->fetch_array()) {
+            $html .= "<option value='" . $rg[value] . "'>" . $rg[descripcion] . " </option>";
+        }
+        $html .= "</select>";
+        echo $html;
+    }
+    
+    public static function getSubCategorias($nombreSelect, $subcategoria = 0,$opciones = "") {
+        $mysqli = getConnection();
+        $ciaSesion = getSessionCia();
+        $selectPosiciones = "SELECT id value,CONCAT(id, ' | ', nombre) descripcion FROM subcategorias WHERE 1 = 1 AND subcategorias.categoria = " . $subcategoria . " ORDER BY id ASC;";
+        $result = $mysqli->query($selectPosiciones);
+        $html = "<select name='" . $nombreSelect . "' id='" . $nombreSelect . "'  $opciones>";
+        while ($rg = $result->fetch_array()) {
+            $html .= "<option value='" . $rg[value] . "'>" . $rg[descripcion] . " </option>";
+        }
+        $html .= "</select>";
+        echo $html;
+    }
 
 }

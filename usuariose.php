@@ -59,7 +59,7 @@ $btnGenerar = " <span class='generar' id='Generar'>Generar contraseña</span>";
                                                     </div>
                                                     <div class="row no-gutters">
                                                         <div class="col-3 align-right">Nombre:</div>
-                                                        <div class="col-9"><input type="text" name="Name" id="Name" placeholder="Nombre completo"></div>
+                                                        <div class="col-9"><input type="text" name="Name" id="Name" placeholder="Nombre completo" onkeyup="mayus(this);"></div>
                                                     </div>
                                                     <div class="row no-gutters">
                                                         <div class="col-3 align-right">Correo:</div>

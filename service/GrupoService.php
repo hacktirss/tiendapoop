@@ -26,7 +26,7 @@ if ($request->hasAttribute("Boton") && $request->getAttribute("Boton") !== utils
 
     $objectVO->setNombre($sanitize->sanitizeString("Nombre"));
     $objectVO->setDescripcion($sanitize->sanitizeString("Descripcion"));
-    $objectVO->setRubro($sanitize->sanitizeString("Rubro"));
+    $objectVO->setRubro($sanitize->sanitizeString("Nombre"));
 
     //error_log(print_r($objectVO, TRUE));
     try {

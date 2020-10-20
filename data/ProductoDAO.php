@@ -52,14 +52,16 @@ class ProductoDAO implements FunctionsDAO {
                 . "existencia, "
                 . "dlls, "
                 . "grupo, "
+                . "categoria, "
+                . "subcategoria, "
                 . "activo, "
                 . "inv_cunidad, "
                 . "inv_cproducto, "
                 . "tipo_servicio "
                 . ") "
-                . "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                . "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         if (($ps = $this->conn->prepare($sql))) {
-            $ps->bind_param("iisssddiiiidssssssss",
+            $ps->bind_param("iisssddiiiidsiiiiissss",
                     $objectVO->getId(),
                     $objectVO->getCia(),
                     $objectVO->getRfc(),
@@ -76,6 +78,8 @@ class ProductoDAO implements FunctionsDAO {
                     $objectVO->getExistencia(),
                     $objectVO->getDlls(),
                     $objectVO->getGrupo(),
+                    $objectVO->getCategoria(),
+                    $objectVO->getSubcategoria(),
                     $objectVO->getActivo(),
                     $objectVO->getInv_cunidad(),
                     $objectVO->getInv_cproducto(),
@@ -119,6 +123,8 @@ class ProductoDAO implements FunctionsDAO {
             $objectVO->setExistencia($rs["existencia"]);
             $objectVO->setDlls($rs["dlls"]);
             $objectVO->setGrupo($rs["grupo"]);
+            $objectVO->setCategoria($rs["categoria"]);
+            $objectVO->setSubcategoria($rs["subcategoria"]);
             $objectVO->setActivo($rs["activo"]);
             $objectVO->setInv_cunidad($rs["inv_cunidad"]);
             $objectVO->setInv_cproducto($rs["inv_cproducto"]);
@@ -200,13 +206,15 @@ class ProductoDAO implements FunctionsDAO {
                 . "existencia = ?, "
                 . "dlls = ?, "
                 . "grupo = ?, "
+                . "categoria = ?, "
+                . "subcategoria = ?, "
                 . "activo = ?, "
                 . "inv_cunidad = ?, "
                 . "inv_cproducto = ?, "
                 . "tipo_servicio = ? "
-                . "WHERE id = ? ";
+                . "WHERE id = ? AND cia = ?";
         if (($ps = $this->conn->prepare($sql))) {
-            $ps->bind_param("sssssssssssssssi",
+            $ps->bind_param("sssssssssssiissssii",
                     $objectVO->getRfc(),
                     $objectVO->getDescripcion(),
                     $objectVO->getUmedida(),
@@ -218,11 +226,14 @@ class ProductoDAO implements FunctionsDAO {
                     $objectVO->getExistencia(),
                     $objectVO->getDlls(),
                     $objectVO->getGrupo(),
+                    $objectVO->getCategoria(),
+                    $objectVO->getSubcategoria(),
                     $objectVO->getActivo(),
                     $objectVO->getInv_cunidad(),
                     $objectVO->getInv_cproducto(),
                     $objectVO->getTipo_servicio(),
-                    $objectVO->getId()
+                    $objectVO->getId(),
+                    $objectVO->getCia()
             );
             return $ps->execute();
         }

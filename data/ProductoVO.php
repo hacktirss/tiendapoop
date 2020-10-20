@@ -15,7 +15,7 @@ class ProductoVO {
     private $cia;
     private $rfc;
     private $descripcion;
-    private $umedida = "Pzas";
+    private $umedida = "EA";
     private $precio = 0;
     private $costo = 0;
     private $iva = 1;
@@ -26,11 +26,13 @@ class ProductoVO {
     private $observaciones;
     private $existencia = 0;
     private $dlls = 0;
-    private $grupo;
+    private $grupo = 1;
     private $activo = "Si";
     private $inv_cunidad = "ZZ";
     private $inv_cproducto = "01010101";
     private $tipo_servicio = "";
+    private $categoria = 0;
+    private $subcategoria = 0;
 
     function __construct() {
         
@@ -195,5 +197,22 @@ class ProductoVO {
     function setIeps($ieps) {
         $this->ieps = $ieps;
     }
+    
+    function getCategoria() {
+        return $this->categoria;
+    }
+
+    function getSubcategoria() {
+        return $this->subcategoria;
+    }
+
+    function setCategoria($categoria) {
+        $this->categoria = $categoria;
+    }
+
+    function setSubcategoria($subcategoria) {
+        $this->subcategoria = $subcategoria;
+    }
+
 
 }

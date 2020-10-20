@@ -13,15 +13,15 @@ $usuarioSesion = getSessionUsuario();
 $busca = $request->hasAttribute("busca") ? $request->getAttribute("busca") : $request->getAttribute("id");
 $editable = $request->hasAttribute("editable") ? $request->getAttribute("editable") : 1;
 
-require_once ("service/GrupoService.php");
+require_once ("service/CatergoriaService.php");
 
-$Titulo = "Registro de grupo nuevo";
+$Titulo = "Registro de categoria nueva";
 
-$objectVO = new GrupoVO();
+$objectVO = new SubcategoriaVO();
 $Cpo = array();
 if (is_numeric($busca)) {
-    $objectVO = $objectDAO->retrieve($busca, "id", $usuarioSesion->getCia());
-    $Titulo = "Detalle de grupo: " . $objectVO->getNombre();
+    $objectVO = $objectDDAO->retrieve($busca, "id");
+    $Titulo = "Detalle de categoria: " . $objectVO->getNombre();
 }
 ?>
 
@@ -43,8 +43,7 @@ if (is_numeric($busca)) {
                 }
 
                 $("#Id").html("<?= $busca ?>");
-                $("#Nombre").val("<?= $objectVO->getNombre() ?>").prop("maxlength", 50);
-                $("#Descripcion").val("<?= $objectVO->getDescripcion() ?>").prop("maxlength", 200);
+                $("#Nombre").val("<?= $objectVO->getNombre() ?>").prop("maxlength", 64);
 
             });
         </script>
@@ -77,12 +76,12 @@ if (is_numeric($busca)) {
                                                     </div>
                                                     <div class="row no-gutters">
                                                         <div class="col-3 align-right">Descripcion:</div>
-                                                        <div class="col-9"><input type="text" name="Descripcion" id="Descripcion"  onkeyup="mayus(this);"></div>
+                                                        <div class="col-9"><textarea name="Descripcion" id="Descripcion" onkeyup="mayus(this);"><?= $objectVO->getDescripcion() ?></textarea></div>
                                                     </div>
                                                     
                                                     <div class="row no-gutters">
                                                         <div class="col-md-4"></div>
-                                                        <div class="col-md-4 align-center"><input type="submit" name="Boton" id="Boton"></div>
+                                                        <div class="col-md-4 align-center"><input type="submit" name="BotonD" id="Boton"></div>
                                                         <div class="col-md-4"></div>
                                                     </div>
                                                 </div>
@@ -91,7 +90,7 @@ if (is_numeric($busca)) {
                                     </tbody>
                                 </table>
 
-                                <?php regresar("grupos.php") ?>
+                                <?php regresar("categoriasd.php") ?>
                             </td>
                             <td>
                                 <table>

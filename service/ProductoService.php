@@ -29,15 +29,13 @@ if ($request->hasAttribute("Boton") && $request->getAttribute("Boton") !== utils
     $objectVO->setUmedida($sanitize->sanitizeString("Umedida"));
     $objectVO->setPrecio($sanitize->sanitizeString("Precio"));
     $objectVO->setCosto($sanitize->sanitizeString("Costo"));
-    $objectVO->setIva($sanitize->sanitizeInt("Iva"));
     $objectVO->setCostopromedio($sanitize->sanitizeString("Costopromedio"));
     $objectVO->setObservaciones($sanitize->sanitizeString("Observaciones"));
     $objectVO->setExistencia($sanitize->sanitizeString("Existencia"));
-    $objectVO->setDlls($sanitize->sanitizeString("Dlls"));
-    $objectVO->setGrupo($sanitize->sanitizeString("Grupo"));
+    $objectVO->setGrupo($sanitize->sanitizeInt("Grupo"));
+    $objectVO->setCategoria($sanitize->sanitizeInt("Categoria"));
+    $objectVO->setSubcategoria($sanitize->sanitizeInt("Subcategoria"));
     $objectVO->setActivo($sanitize->sanitizeString("Activo"));
-    $objectVO->setInv_cunidad($sanitize->sanitizeString("Inv_cunidad"));
-    $objectVO->setInv_cproducto($sanitize->sanitizeString("Inv_cproducto"));
 
 
     //error_log(print_r($objectVO, TRUE));

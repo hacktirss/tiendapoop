@@ -48,16 +48,15 @@ if (is_numeric($busca)) {
                 $("#Umedida").val("<?= $objectVO->getUmedida() ?>");
                 $("#Precio").val("<?= $objectVO->getPrecio() ?>");
                 $("#Costo").val("<?= $objectVO->getCosto() ?>");
-                $("#Iva").val("<?= $objectVO->getIva() ?>");
                 $("#Costopromedio").html("<?= $objectVO->getCostopromedio() ?>");
                 $("#Observaciones").val("<?= $objectVO->getObservaciones() ?>");
                 $("#Existencia").val("<?= $objectVO->getExistencia() ?>");
                 $("#Dlls").val("<?= $objectVO->getDlls() ?>");
                 $("#Grupo").val("<?= $objectVO->getGrupo() ?>");
                 $("#Activo").val("<?= $objectVO->getActivo() ?>");
-                $("#Inv_cunidad").val("<?= $objectVO->getInv_cunidad() ?>");
-                $("#Inv_cproducto").val("<?= $objectVO->getInv_cproducto() ?>");
-
+                $("#Categoria").val("<?= $objectVO->getCategoria() ?>").prop("required", true);
+                $("#Subcategoria").val("<?= $objectVO->getSubcategoria() ?>");
+                
             });
         </script>
 
@@ -103,19 +102,7 @@ if (is_numeric($busca)) {
                                                     </div>
                                                     <div class="row no-gutters">
                                                         <div class="col-md-3 align-right">Unida de medida:</div>
-                                                        <div class="col-md-5">
-                                                            <select name="Umedida" id="Umedida">
-                                                                <option value="Pzas">Pzas</option>
-                                                                <option value="Lts">Lts</option>
-                                                                <option value="Cajas">Cajas</option>
-                                                                <option value="Mts">Mts</option>
-                                                                <option value="Kgs">Kgs</option>
-                                                                <option value="Servicio">Servicio</option>
-                                                                <option value="Tarjeta">Tarjeta</option>
-                                                                <option value="Componente">Componente</option>
-                                                                <option value="No aplica">No aplica</option>
-                                                            </select>
-                                                        </div>
+                                                        <div class="col-md-5"><?= ComboboxUnidades::generate("Umedida");?></div>
                                                         <div class="col-md-3 align-right">Activo:</div>
                                                         <div class="col-md-1">
                                                             <select name="Activo" id="Activo">
@@ -123,7 +110,20 @@ if (is_numeric($busca)) {
                                                                 <option value="No">No</option>
                                                             </select>
                                                         </div>
-                                                    </div>                                                    
+                                                    </div>
+                                                    <div class="row no-gutters">
+                                                        <div class="col-md-3 align-right">Categoria:</div>
+                                                        <div class="col-md-9"><?= ListasCatalogo::getCategorias("Categoria")?></div>
+                                                    </div>
+                                                    <div class="row no-gutters">
+                                                        <div class="col-md-3 align-right">Sub-Categoria:</div>
+                                                        <div class="col-md-9"><?= ListasCatalogo::getSubCategorias("Subcategoria", $objectVO->getCategoria())?></div>
+                                                    </div>  
+                                                    <div class="row no-gutters">
+                                                        <div class="col-md-4"></div>
+                                                        <div class="col-md-4 align-center"><input type="submit" name="Boton" id="Boton"></div>
+                                                        <div class="col-md-4"></div>
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>                                       
@@ -136,33 +136,6 @@ if (is_numeric($busca)) {
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td class="titulos" colspan="100%">Clasificacion necesario para poder facturar</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="100%">
-                                                <div class="container">                                                    
-                                                    <div class="row no-gutters">
-                                                        <div class="col-md-3 align-right">Unida de medida:</div>
-                                                        <div class="col-md-9"><?= ComboboxUnidades::generate("Inv_cunidad");?></div>
-                                                    </div>
-                                                    <div class="row no-gutters">
-                                                        <div class="col-md-3 align-right">Clave de Producto/Servicio:</div>
-                                                        <div class="col-md-9"><?= ComboboxCommonProductoServicio::generate("Inv_cproducto");?></div>
-                                                    </div>
-                                                    <div class="row no-gutters">
-                                                        <div class="col-md-3 align-right">Iva:</div>
-                                                        <div class="col-md-1">
-                                                            <select name="Iva" id="Iva">
-                                                                <option value="1">Si</option>
-                                                                <option value="0">No</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-8"> Indica si el precio del producto será más IVA</div>
-                                                    </div>   
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
                                             <td class="titulos" colspan="100%">Datos de operación</td>
                                         </tr>
                                         <tr>
@@ -172,11 +145,7 @@ if (is_numeric($busca)) {
                                                         <div class="col-md-3 align-right">Observaciones:</div>
                                                         <div class="col-md-9"><textarea name="Observaciones" id="Observaciones"><?= $objectVO->getObservaciones() ?></textarea></div>
                                                     </div>
-                                                    <div class="row no-gutters">
-                                                        <div class="col-md-4"></div>
-                                                        <div class="col-md-4 align-center"><input type="submit" name="Boton" id="Boton"></div>
-                                                        <div class="col-md-4"></div>
-                                                    </div>
+                                                    
                                                 </div>
                                             </td>
                                         </tr>
@@ -191,5 +160,34 @@ if (is_numeric($busca)) {
         </form>
 
         <?php BordeSuperiorCerrar(); ?>
+        
+         <script>
+            $(document).ready(function () {
+                $("#Categoria").change(function () {
+                    $.ajax({
+                        url: "getCategorias.php",
+                        type: "post",
+                        data: {menu: $("#Categoria").val()},
+                        dataType: "json",
+                        success: function (response) {
+                            var len = response.length;
+
+                            $("#Subcategoria").empty();
+                            for (var i = 0; i < len; i++) {
+                                var id = response[i]["id"];
+                                var name = response[i]["nombre"];
+
+                                $("#Subcategoria").append("<option value='" + id + "'>" + id + " | " + name + "</option>");
+                            }
+                        },
+                        error: function (jqXHR, ex) {
+                            console.log("Status: " + jqXHR.status);
+                            console.log("Uncaught Error.\n" + jqXHR.responseText);
+                            console.log(ex);
+                        }
+                    });
+                });
+            });
+        </script>
     </body>
 </html> 
