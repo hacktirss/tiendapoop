@@ -22,7 +22,7 @@ class CliVO {
     private $activo = "Si";
     private $contacto;
     private $observaciones;
-    private $rfc;
+    private $rfc = "XAXX010101000";
     private $codigo;
     private $correo;
     private $numeroext;
