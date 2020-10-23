@@ -64,6 +64,12 @@ $GRetencionIva = .1067;       // lo mando en factor el 10.67%
         }
     }
     
+    function borrarD(identificador, url) {
+        if (confirm("¿Deseas dar de baja el registro " + identificador + "?")) {
+            document.location.href = url + "?opD=Si&cId=" + identificador;
+        }
+    }
+    
     function mayus(e) {
         e.value = e.value.toUpperCase();
     }

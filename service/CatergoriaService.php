@@ -56,10 +56,10 @@ if ($request->hasAttribute("Boton") && $request->getAttribute("Boton") !== utils
 
 
 if ($request->hasAttribute("BotonD") && $request->getAttribute("BotonD") !== utils\Messages::OP_NO_OPERATION_VALID) {
-    $Return = "categoriasd.php?";        
-    
+    $Return = "categoriasd.php?";
+
     $Msj = utils\Messages::MESSAGE_NO_OPERATION;
-    
+
     $nameSession = "catalogoCategoriasD";
     $cVarVal = utils\HTTPUtils::getSessionBiValue($nameSession, DETALLE);
 
@@ -97,4 +97,66 @@ if ($request->hasAttribute("BotonD") && $request->getAttribute("BotonD") !== uti
 
 
     header("Location: $Return");
+}
+
+if ($request->hasAttribute("op")) {
+    $cId = $sanitize->sanitizeInt("cId");
+    try {
+        $objectVO = $objectDAO->retrieve($cId, "id", $usuarioSesion->getCia());
+        if ($request->getAttribute("op") === utils\Messages::OP_DELETE) {
+            $selectInv = "SELECT COUNT(inv.id) registros FROM inv WHERE categoria = $cId";
+            $rows = utils\ConnectionUtils::execSql($selectInv);
+            if ($rows["registros"] === "0") {
+                if ($objectDAO->remove($objectVO)) {
+                    $Msj = utils\Messages::RESPONSE_VALID_DELETE;
+                } else {
+                    $Msj = utils\Messages::RESPONSE_ERROR;
+                }
+            } else {
+                $Msj = "No se puede borrar la categoria porque tiene productos asociados";
+            }
+        }
+        $Return .= "&Msj=" . urlencode($Msj);
+    } catch (Exception $ex) {
+        error_log("Error: " . $ex);
+    } finally {
+        if ($mysqli->errno > 0) {
+            error_log($mysqli->error);
+        }
+        if (!is_null($Return)) {
+            header("Location: $Return");
+        }
+    }
+}
+
+if ($request->hasAttribute("opD")) {
+    $Return = "categoriasd.php?";
+    $cId = $sanitize->sanitizeInt("cId");
+    try {
+        $objectVO = $objectDDAO->retrieve($cId);
+        if ($request->getAttribute("opD") === utils\Messages::OP_DELETE) {
+
+            $selectInv = "SELECT COUNT(inv.id) registros FROM inv WHERE subcategoria = $cId";
+            $rows = utils\ConnectionUtils::execSql($selectInv);
+            if ($rows["registros"] === "0") {
+                if ($objectDDAO->remove($objectVO)) {
+                    $Msj = utils\Messages::RESPONSE_VALID_DELETE;
+                } else {
+                    $Msj = utils\Messages::RESPONSE_ERROR;
+                }
+            } else {
+                $Msj = "No se puede borrar la subcategoria porque tiene productos asociados";
+            }
+        }
+        $Return .= "&Msj=" . urlencode($Msj);
+    } catch (Exception $ex) {
+        error_log("Error: " . $ex);
+    } finally {
+        if ($mysqli->errno > 0) {
+            error_log($mysqli->error);
+        }
+        if (!is_null($Return)) {
+            header("Location: $Return");
+        }
+    }
 }

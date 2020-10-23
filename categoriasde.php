@@ -15,13 +15,13 @@ $editable = $request->hasAttribute("editable") ? $request->getAttribute("editabl
 
 require_once ("service/CatergoriaService.php");
 
-$Titulo = "Registro de categoria nueva";
+$Titulo = "Registro de sub-categoria nueva";
 
 $objectVO = new SubcategoriaVO();
 $Cpo = array();
 if (is_numeric($busca)) {
     $objectVO = $objectDDAO->retrieve($busca, "id");
-    $Titulo = "Detalle de categoria: " . $objectVO->getNombre();
+    $Titulo = "Detalle de sub-categoria: " . $objectVO->getNombre();
 }
 ?>
 

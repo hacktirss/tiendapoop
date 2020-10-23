@@ -5,6 +5,8 @@ include_once ("check.php");
 
 use com\softcoatl\utils as utils;
 
+require_once ("service/CatergoriaService.php");
+
 $request = utils\HTTPUtils::getRequest();
 $nameSession = "catalogoCategoriasD";
 $arrayFilter = array(DETALLE => $request->getAttribute(DETALLE));
@@ -43,6 +45,7 @@ $self = utils\HTTPUtils::getEnvironment()->getAttribute("PHP_SELF");
 $cLink = substr($self, 0, strrpos($self, ".")) . "e.php";
 $cLinkd = substr($self, 0, strrpos($self, ".")) . "d.php";
 $rLink = $session->getSessionAttribute("returnLink");
+
 
 ?>
 
@@ -83,7 +86,7 @@ $rLink = $session->getSessionAttribute("returnLink");
                             <?php echo $paginador->formatRow(); ?>
                             <td style="text-align: center">
                                 <?php if (empty($session->getSessionAttribute("returnLink"))) : ?>
-                                    <a href=javascript:borrar("<?= $row["id"] ?>","<?= $self ?>"); data-id="<?= $row["id"] ?>"><i aria-hidden="true" class="icon fa fa-lg fa-trash"></i></a>
+                                    <a href=javascript:borrarD("<?= $row["id"] ?>","<?= $self ?>"); data-id="<?= $row["id"] ?>"><i aria-hidden="true" class="icon fa fa-lg fa-trash"></i></a>
                                     <?php endif; ?>
                             </td>                            
                         </tr>

@@ -5,6 +5,8 @@ include_once ("check.php");
 
 use com\softcoatl\utils as utils;
 
+require_once ("service/CatergoriaService.php");
+
 $request = utils\HTTPUtils::getRequest();
 $nameSession = "catalogoCategorias";
 $arrayFilter = array();

@@ -36,21 +36,19 @@ class SubcategoriaDAO implements FunctionsDAO {
     public function create($objectVO) {
         $id = -1;
         $sql = "INSERT INTO " . self::TABLA . " ("
-                . "id, "
                 . "categoria, "
                 . "nombre, "
                 . "descripcion "
                 . ") "
-                . "VALUES(?,?,?,?)";
+                . "VALUES(?,?,?)";
         if (($ps = $this->conn->prepare($sql))) {
-            $ps->bind_param("iiss",
-                    $objectVO->getId(),
+            $ps->bind_param("iss",
                     $objectVO->getCategoria(),
                     $objectVO->getNombre(),
                     $objectVO->getDescripcion()
             );
             if ($ps->execute()) {
-                $id = $objectVO->getId();
+                $id = $this->conn->insert_id;
                 $ps->close();
                 return $id;
             } else {
@@ -104,10 +102,9 @@ class SubcategoriaDAO implements FunctionsDAO {
      * @return boolean Si la operación fue exitosa devolvera TRUE
      */
     public function remove($objectVO, $field = "id") {
-        $sql = "DELETE FROM " . self::TABLA . " WHERE " . $field . " = ? AND cia = ? LIMIT 1";
+        $sql = "DELETE FROM " . self::TABLA . " WHERE " . $field . " = ?  LIMIT 1";
         if (($ps = $this->conn->prepare($sql))) {
-            $ps->bind_param("ii", $objectVO->getId(), $objectVO->getCia()
-            );
+            $ps->bind_param("i", $objectVO->getId());
             return $ps->execute();
         }
     }
