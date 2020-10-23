@@ -40,8 +40,11 @@ class ProductoDAO implements FunctionsDAO {
                 . "cia, "
                 . "rfc, "
                 . "descripcion, "
+                . "codigo, "
                 . "umedida, "
                 . "precio, "
+                . "menudeo, "
+                . "mayoreo, "
                 . "costo, "
                 . "iva, "
                 . "isr, "
@@ -59,15 +62,18 @@ class ProductoDAO implements FunctionsDAO {
                 . "inv_cproducto, "
                 . "tipo_servicio "
                 . ") "
-                . "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                . "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         if (($ps = $this->conn->prepare($sql))) {
-            $ps->bind_param("iisssddiiiidsiiiiissss",
+            $ps->bind_param("iissssddddiiiidsiiiiissss",
                     $objectVO->getId(),
                     $objectVO->getCia(),
                     $objectVO->getRfc(),
                     $objectVO->getDescripcion(),
+                    $objectVO->getCodigo(),
                     $objectVO->getUmedida(),
                     $objectVO->getPrecio(),
+                    $objectVO->getMenudeo(),
+                    $objectVO->getMayoreo(),
                     $objectVO->getCosto(),
                     $objectVO->getIva(),
                     $objectVO->getIsr(),
@@ -111,8 +117,11 @@ class ProductoDAO implements FunctionsDAO {
             $objectVO->setCia($rs["cia"]);
             $objectVO->setRfc($rs["rfc"]);
             $objectVO->setDescripcion($rs["descripcion"]);
+            $objectVO->setCodigo($rs["codigo"]);
             $objectVO->setUmedida($rs["umedida"]);
             $objectVO->setPrecio($rs["precio"]);
+            $objectVO->setMenudeo($rs["menudeo"]);
+            $objectVO->setMayoreo($rs["mayoreo"]);
             $objectVO->setCosto($rs["costo"]);
             $objectVO->setIva($rs["iva"]);
             $objectVO->setIsr($rs["isr"]);
@@ -198,8 +207,11 @@ class ProductoDAO implements FunctionsDAO {
         $sql = "UPDATE " . self::TABLA . " SET "
                 . "rfc = ?, "
                 . "descripcion = ?, "
+                . "codigo = ?, "
                 . "umedida = ?, "
                 . "precio = ?, "
+                . "menudeo = ?, "
+                . "mayoreo = ?, "
                 . "costo = ?, "
                 . "iva = ?, "
                 . "costopromedio = ?, "
@@ -215,11 +227,14 @@ class ProductoDAO implements FunctionsDAO {
                 . "tipo_servicio = ? "
                 . "WHERE id = ? AND cia = ?";
         if (($ps = $this->conn->prepare($sql))) {
-            $ps->bind_param("sssssssssssiissssii",
+            $ps->bind_param("ssssddddssssssiissssii",
                     $objectVO->getRfc(),
                     $objectVO->getDescripcion(),
+                    $objectVO->getCodigo(),
                     $objectVO->getUmedida(),
                     $objectVO->getPrecio(),
+                    $objectVO->getMenudeo(),
+                    $objectVO->getMayoreo(),
                     $objectVO->getCosto(),
                     $objectVO->getIva(),
                     $objectVO->getCostopromedio(),

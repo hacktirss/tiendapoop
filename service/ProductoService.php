@@ -27,8 +27,9 @@ if ($request->hasAttribute("Boton") && $request->getAttribute("Boton") !== utils
     $objectVO->setRfc($CiaSesion->getRfc());
     $objectVO->setDescripcion($sanitize->sanitizeString("Descripcion"));
     $objectVO->setUmedida($sanitize->sanitizeString("Umedida"));
-    $objectVO->setPrecio($sanitize->sanitizeString("Precio"));
-    $objectVO->setCosto($sanitize->sanitizeString("Costo"));
+    $objectVO->setPrecio($sanitize->sanitizeFloat("Precio"));
+    $objectVO->setMenudeo($sanitize->sanitizeFloat("Menudeo"));
+    $objectVO->setMayoreo($sanitize->sanitizeFloat("Mayoreo"));
     $objectVO->setCostopromedio($sanitize->sanitizeString("Costopromedio"));
     $objectVO->setObservaciones($sanitize->sanitizeString("Observaciones"));
     $objectVO->setExistencia($sanitize->sanitizeString("Existencia"));
@@ -36,7 +37,7 @@ if ($request->hasAttribute("Boton") && $request->getAttribute("Boton") !== utils
     $objectVO->setCategoria($sanitize->sanitizeInt("Categoria"));
     $objectVO->setSubcategoria($sanitize->sanitizeInt("Subcategoria"));
     $objectVO->setActivo($sanitize->sanitizeString("Activo"));
-
+    $objectVO->setCodigo($sanitize->sanitizeString("Codigo"));
 
     //error_log(print_r($objectVO, TRUE));
     try {

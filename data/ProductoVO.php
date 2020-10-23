@@ -15,8 +15,11 @@ class ProductoVO {
     private $cia;
     private $rfc;
     private $descripcion;
+    private $codigo;
     private $umedida = "EA";
     private $precio = 0;
+    private $mayoreo = 0;
+    private $menudeo = 0;
     private $costo = 0;
     private $iva = 1;
     private $isr = 0;
@@ -221,6 +224,30 @@ class ProductoVO {
 
     function setImage($image) {
         $this->image = $image;
+    }
+
+    function getMayoreo() {
+        return $this->mayoreo;
+    }
+
+    function getMenudeo() {
+        return $this->menudeo;
+    }
+
+    function setMayoreo($mayoreo) {
+        $this->mayoreo = $mayoreo;
+    }
+
+    function setMenudeo($menudeo) {
+        $this->menudeo = $menudeo;
+    }
+
+    function getCodigo() {
+        return $this->codigo;
+    }
+
+    function setCodigo($codigo) {
+        $this->codigo = $codigo;
     }
 
 }

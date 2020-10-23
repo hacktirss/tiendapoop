@@ -48,7 +48,9 @@ error_log($objectVO->getImage());
                 $("#Descripcion").val("<?= $objectVO->getDescripcion() ?>");
                 $("#Umedida").val("<?= $objectVO->getUmedida() ?>");
                 $("#Precio").val("<?= $objectVO->getPrecio() ?>");
-                $("#Costo").val("<?= $objectVO->getCosto() ?>");
+                $("#Menudeo").val("<?= $objectVO->getMenudeo() ?>");
+                $("#Mayoreo").val("<?= $objectVO->getMayoreo() ?>");
+                $("#Costo").html("<?= $objectVO->getCosto() ?>");
                 $("#Costopromedio").html("<?= $objectVO->getCostopromedio() ?>");
                 $("#Observaciones").val("<?= $objectVO->getObservaciones() ?>");
                 $("#Existencia").val("<?= $objectVO->getExistencia() ?>");
@@ -57,6 +59,7 @@ error_log($objectVO->getImage());
                 $("#Activo").val("<?= $objectVO->getActivo() ?>");
                 $("#Categoria").val("<?= $objectVO->getCategoria() ?>").prop("required", true);
                 $("#Subcategoria").val("<?= $objectVO->getSubcategoria() ?>");
+                $("#Codigo").val("<?= $objectVO->getCodigo() ?>");
 
             });
         </script>
@@ -94,11 +97,18 @@ error_log($objectVO->getImage());
                                                         <div class="col-md-4"> <?= ListasCatalogo::getGrupos("Grupo") ?></div>
                                                     </div>
                                                     <div class="row no-gutters">
+                                                        <div class="col-md-3 align-right">Precio menudeo $</div>
+                                                        <div class="col-md-2"><input type="text" name="Menudeo" id="Menudeo"></div>
+                                                        <div class="col-md-2"></div>
+                                                        <div class="col-md-3 align-right">Precio mayoreo $</div>
+                                                        <div class="col-md-2"><input type="text" name="Mayoreo" id="Mayoreo"></div>
+                                                    </div>
+                                                    <div class="row no-gutters">
                                                         <div class="col-md-3 align-right">Ultimo costo:</div>
-                                                        <div class="col-md-1"><input type="text" name="Costo" id="Costo"></div>
+                                                        <div class="col-md-1"><span id="Costo"></span></div>
                                                         <div class="col-md-2 align-right">Costo prom:</div>
                                                         <div class="col-md-1"><span id="Costopromedio"></span></div>
-                                                        <div class="col-md-3 align-right">Precio $:</div>
+                                                        <div class="col-md-3 align-right">Precio al publico $</div>
                                                         <div class="col-md-2"><input type="text" name="Precio" id="Precio"></div>
                                                     </div>
                                                     <div class="row no-gutters">
@@ -119,7 +129,11 @@ error_log($objectVO->getImage());
                                                     <div class="row no-gutters">
                                                         <div class="col-md-3 align-right">Sub-Categoria:</div>
                                                         <div class="col-md-9"><?= ListasCatalogo::getSubCategorias("Subcategoria", $objectVO->getCategoria()) ?></div>
-                                                    </div>  
+                                                    </div>
+                                                    <div class="row no-gutters">
+                                                        <div class="col-3 align-right">Código:</div>
+                                                        <div class="col-5"><input type="text" name="Codigo" id="Codigo" onkeyup="mayus(this);" autofocus="true"></div>
+                                                    </div>
                                                     <div class="row no-gutters">
                                                         <div class="col-md-4"></div>
                                                         <div class="col-md-4 align-center"><input type="submit" name="Boton" id="Boton"></div>
