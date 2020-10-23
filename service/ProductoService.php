@@ -62,3 +62,28 @@ if ($request->hasAttribute("Boton") && $request->getAttribute("Boton") !== utils
 
     header("Location: $Return");
 }
+
+
+if ($request->hasAttribute("Upload") && $request->getAttribute("Upload") !== utils\Messages::OP_NO_OPERATION_VALID) {
+
+    try {
+        $objectVO = $objectDAO->retrieve($sanitize->sanitizeInt("busca"), "id", $usuarioSesion->getCia());
+        $Return = "productose.php?busca=" . $objectVO->getId();
+        error_log("Load image...");
+        $image = $_FILES['Imagen']['name'];
+        error_log(print_r($_FILES["Imagen"], TRUE));
+        $imgContent = file_get_contents($_FILES["Imagen"]["tmp_name"]);
+        //error_log(print_r($imgContent, TRUE));
+        if ($objectDAO->updateImage($objectVO, $imgContent)) {
+            $Msj = utils\Messages::RESPONSE_VALID_UPDATE;
+        } else {
+            $Msj = utils\Messages::RESPONSE_ERROR;
+        }
+        $Return .= "&Msj=" . urlencode($Msj);
+    } catch (Exception $ex) {
+        error_log("Error: " . $ex);
+    }
+
+
+    header("Location: $Return");
+}

@@ -24,6 +24,7 @@ if (is_numeric($busca)) {
     $objectVO = $objectDAO->retrieve($busca, "id", $usuarioSesion->getCia());
     $Titulo = "Detalle de producto: " . $objectVO->getDescripcion();
 }
+error_log($objectVO->getImage());
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +57,7 @@ if (is_numeric($busca)) {
                 $("#Activo").val("<?= $objectVO->getActivo() ?>");
                 $("#Categoria").val("<?= $objectVO->getCategoria() ?>").prop("required", true);
                 $("#Subcategoria").val("<?= $objectVO->getSubcategoria() ?>");
-                
+
             });
         </script>
 
@@ -64,7 +65,7 @@ if (is_numeric($busca)) {
 
         <?php BordeSuperior(); ?> 
 
-        <form name="form1" method="post" action="">
+        <form name="form1" method="post" action="" enctype="multipart/form-data">
             <div id="Formularios">
                 <table>
                     <tbody>
@@ -90,7 +91,7 @@ if (is_numeric($busca)) {
                                                         <div class="col-3 align-right">Existencia:</div>
                                                         <div class="col-2"><input type="number" name="Existencia" id="Existencia" min="0"></div>
                                                         <div class="col-md-3 align-right">Grupo:</div>
-                                                        <div class="col-md-4"> <?= ListasCatalogo::getGrupos("Grupo")?></div>
+                                                        <div class="col-md-4"> <?= ListasCatalogo::getGrupos("Grupo") ?></div>
                                                     </div>
                                                     <div class="row no-gutters">
                                                         <div class="col-md-3 align-right">Ultimo costo:</div>
@@ -102,7 +103,7 @@ if (is_numeric($busca)) {
                                                     </div>
                                                     <div class="row no-gutters">
                                                         <div class="col-md-3 align-right">Unida de medida:</div>
-                                                        <div class="col-md-5"><?= ComboboxUnidades::generate("Umedida");?></div>
+                                                        <div class="col-md-5"><?= ComboboxUnidades::generate("Umedida"); ?></div>
                                                         <div class="col-md-3 align-right">Activo:</div>
                                                         <div class="col-md-1">
                                                             <select name="Activo" id="Activo">
@@ -113,11 +114,11 @@ if (is_numeric($busca)) {
                                                     </div>
                                                     <div class="row no-gutters">
                                                         <div class="col-md-3 align-right">Categoria:</div>
-                                                        <div class="col-md-9"><?= ListasCatalogo::getCategorias("Categoria")?></div>
+                                                        <div class="col-md-9"><?= ListasCatalogo::getCategorias("Categoria") ?></div>
                                                     </div>
                                                     <div class="row no-gutters">
                                                         <div class="col-md-3 align-right">Sub-Categoria:</div>
-                                                        <div class="col-md-9"><?= ListasCatalogo::getSubCategorias("Subcategoria", $objectVO->getCategoria())?></div>
+                                                        <div class="col-md-9"><?= ListasCatalogo::getSubCategorias("Subcategoria", $objectVO->getCategoria()) ?></div>
                                                     </div>  
                                                     <div class="row no-gutters">
                                                         <div class="col-md-4"></div>
@@ -145,8 +146,32 @@ if (is_numeric($busca)) {
                                                         <div class="col-md-3 align-right">Observaciones:</div>
                                                         <div class="col-md-9"><textarea name="Observaciones" id="Observaciones"><?= $objectVO->getObservaciones() ?></textarea></div>
                                                     </div>
-                                                    
+
                                                 </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="titulos" colspan="100%">Cargar foto</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="100%">
+                                                <div class="container">                                                    
+                                                    <div class="row no-gutters">
+                                                        <div class="col-md-12 align-center">
+                                                            <?php if(!is_null($objectVO->getImage() &&!empty($objectVO->getImage()))): ?>
+                                                            <img src="data:image/jpeg;base64,<?= base64_encode($objectVO->getImage()) ?>" class="foto" alt="Foto">
+                                                            <?php endif; ?>
+                                                        </div>
+                                                    </div>   
+                                                    <div class="row no-gutters">
+                                                        <div class="col-md-12 align-center"><input type="file" name="Imagen"></div>
+                                                    </div>   
+                                                    <div class="row no-gutters">
+                                                        <div class="col-md-4"></div>
+                                                        <div class="col-md-4 align-center"><input type="submit" name="Upload" value="Cargar"></div>
+                                                        <div class="col-md-4"></div>
+                                                    </div>
+                                                </div>                                                
                                             </td>
                                         </tr>
                                     </tbody>
@@ -160,8 +185,8 @@ if (is_numeric($busca)) {
         </form>
 
         <?php BordeSuperiorCerrar(); ?>
-        
-         <script>
+
+        <script>
             $(document).ready(function () {
                 $("#Categoria").change(function () {
                     $.ajax({

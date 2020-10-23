@@ -28,6 +28,11 @@
     font-size: 12px;
     color: var(--MainColor);
 }
+
+#Formularios > table > tbody > tr > td > table > tbody > tr > td .foto{
+    width: 200px;
+    height: 250px;
+}
 #Formularios > table > tbody > tr > td > table > tbody > tr > td input, button, textarea, select{
     background-color: var(--ThirdColor);
 }

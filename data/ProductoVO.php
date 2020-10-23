@@ -33,6 +33,7 @@ class ProductoVO {
     private $tipo_servicio = "";
     private $categoria = 0;
     private $subcategoria = 0;
+    private $image = null;
 
     function __construct() {
         
@@ -214,5 +215,12 @@ class ProductoVO {
         $this->subcategoria = $subcategoria;
     }
 
+    function getImage() {
+        return $this->image;
+    }
+
+    function setImage($image) {
+        $this->image = $image;
+    }
 
 }

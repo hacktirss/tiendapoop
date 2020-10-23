@@ -129,6 +129,7 @@ class ProductoDAO implements FunctionsDAO {
             $objectVO->setInv_cunidad($rs["inv_cunidad"]);
             $objectVO->setInv_cproducto($rs["inv_cproducto"]);
             $objectVO->setTipo_servicio($rs["tipo_servicio"]);
+            $objectVO->setImage($rs["imagen"]);
         }
         return $objectVO;
     }
@@ -175,8 +176,8 @@ class ProductoDAO implements FunctionsDAO {
     public function retrieve($idObjectVO, $field = "id", $cia = 0) {
         $objectVO = new ProductoVO();
         $sql = "SELECT * FROM " . self::TABLA . " WHERE " . $field . " = '" . $idObjectVO . "'";
-        if(!empty($cia) && is_numeric($cia)){
-            $sql .= " AND " . self::TABLA . ".cia = $cia"; 
+        if (!empty($cia) && is_numeric($cia)) {
+            $sql .= " AND " . self::TABLA . ".cia = $cia";
         }
         //error_log($sql);
         if (($query = $this->conn->query($sql)) && ($rs = $query->fetch_assoc())) {
@@ -236,6 +237,25 @@ class ProductoDAO implements FunctionsDAO {
                     $objectVO->getCia()
             );
             return $ps->execute();
+        }
+        error_log($this->conn->error);
+        return false;
+    }
+
+    public function updateImage($objectVO, $content) {
+        $sql = "UPDATE " . self::TABLA . " SET "
+                . "imagen = ? "
+                . "WHERE id = ? AND cia = ?";
+        if (($ps = $this->conn->prepare($sql))) {
+            $ps->bind_param("bii",
+                    $null,
+                    $objectVO->getId(),
+                    $objectVO->getCia()
+            );
+            $ps->send_long_data(0, $content);
+            if ($ps->execute()) {
+                return true;
+            }
         }
         error_log($this->conn->error);
         return false;
