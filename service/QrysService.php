@@ -31,7 +31,7 @@ if ($request->hasAttribute("Boton") && $request->getAttribute("Boton") !== utils
     try {
         if ($request->getAttribute("Boton") === utils\Messages::OP_ADD) {
             if (($id = $objectDAO->create($objectVO)) > 0) {
-                $Msj = utils\Messages::RESPONSE_VALID_CREATE;               
+                $Msj = utils\Messages::RESPONSE_VALID_CREATE;
             } else {
                 $Msj = utils\Messages::RESPONSE_ERROR;
             }
@@ -41,12 +41,36 @@ if ($request->hasAttribute("Boton") && $request->getAttribute("Boton") !== utils
             } else {
                 $Msj = utils\Messages::RESPONSE_ERROR;
             }
-        } 
+        }
     } catch (Exception $ex) {
         error_log("Error: " . $ex);
     } finally {
         if (!empty($Return)) {
             $Return .= "&Msj=" . urlencode($Msj);
+            header("Location: $Return");
+        }
+    }
+}
+
+
+if ($request->hasAttribute("op")) {
+    $cId = $sanitize->sanitizeInt("cId");
+    try {
+        if ($request->getAttribute("op") === utils\Messages::OP_DELETE) {
+            if ($objectDAO->remove($cId)) {
+                $Msj = utils\Messages::RESPONSE_VALID_DELETE;
+            } else {
+                $Msj = utils\Messages::RESPONSE_ERROR;
+            }
+        }
+        $Return .= "&Msj=" . urlencode($Msj);
+    } catch (Exception $ex) {
+        error_log("Error: " . $ex);
+    } finally {
+        if ($mysqli->errno > 0) {
+            error_log($mysqli->error);
+        }
+        if (!is_null($Return)) {
             header("Location: $Return");
         }
     }
