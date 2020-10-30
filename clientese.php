@@ -54,7 +54,7 @@ if (is_numeric($busca)) {
                 $("#Colonia").val("<?= $objectVO->getColonia() ?>");
                 $("#Municipio").val("<?= $objectVO->getMunicipio() ?>");
                 $("#Estado").val("<?= $objectVO->getEstado() ?>");
-                $("#Codigo").val("<?= $objectVO->getCodigo() ?>").prop("required", true);
+                $("#Codigo").val("<?= $objectVO->getCodigo() ?>").prop("required", false);
                 $("#Correo").val("<?= $objectVO->getCorreo() ?>");
                 $("#Enviarcorreo").val("<?= $objectVO->getEnviarcorreo() ?>").prop("required", true);
                 $("#Cuentaban").val("<?= $objectVO->getCuentaban() ?>");
