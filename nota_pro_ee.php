@@ -90,8 +90,8 @@ $self = utils\HTTPUtils::getEnvironment()->getAttribute("PHP_SELF");
                 $("#autocomplete").focus();
                 $("#autocomplete").activeComboBox(
                         $("[name='form1']"),
-                        "SELECT id as data, CONCAT(id, ' | ', descripcion, ' | ' , precio) value FROM inv WHERE inv.cia = " + cia,
-                        "descripcion"
+                        "SELECT id as data, codigo value FROM inv WHERE inv.cia = " + cia,
+                        "codigo"
                         );
             });
 
@@ -239,7 +239,7 @@ $self = utils\HTTPUtils::getEnvironment()->getAttribute("PHP_SELF");
                                                         if ($request->hasAttribute("BotonD") && $request->getAttribute("BotonD") === utils\Messages::OP_NO_OPERATION_VALID) :
                                                             $Producto = trim(explode("|", $request->getAttribute("Producto"))[0]);
                                                             $productoDAO = new ProductoDAO();
-                                                            $productoVO = $productoDAO->retrieve($Producto, "id", $UsuarioSesion->getCia());
+                                                            $productoVO = $productoDAO->retrieve($Producto, "codigo", $UsuarioSesion->getCia());
 
                                                             $Precio = ($productoVO->getDlls() == 1) ? $productoVO->getPrecio() * $productoVO->getDlls() : $productoVO->getPrecio();
                                                             ?>
@@ -247,14 +247,14 @@ $self = utils\HTTPUtils::getEnvironment()->getAttribute("PHP_SELF");
                                                                 <div class="col-2 align-right">Producto:</div>
                                                                 <div class="col-7"><input type="text" name="Descripcion" value="<?= $productoVO->getDescripcion() ?>" onkeyup="mayus(this);"></div>
                                                                 <div class="col-1"></div>
-                                                                <div class="col-2"><a class="enlaces" href="facturase.php"> cancelar </a></div>
+                                                                <div class="col-2"><a class="enlaces" href="nota_pro_ee.php"> cancelar </a></div>
                                                             </div>
 
                                                             <div class="row no-gutters">
                                                                 <div class="col-2 align-right">Costo:</div>
                                                                 <div class="col-2"><input type="text" name="Costo" value="<?= $productoVO->getCosto() ?>" placeholder=" $" autofocus="true" required="required"></div>                                                                    
                                                                 <div class="col-2 align-right">Cantidad:</div>
-                                                                <div class="col-2"><input type="number" id="Cnt" name="Cnt" min="0"></div>
+                                                                <div class="col-2"><input type="number" id="Cnt" name="Cnt" value="" min="0"></div>
                                                                 <div class="col-2 align-right">P. Venta:</div>
                                                                 <div class="col-2"><input type="text" id="Precio" name="Precio" value="<?= $productoVO->getPrecio() ?>" placeholder=" $0.00" required="required"></div>
                                                             </div>

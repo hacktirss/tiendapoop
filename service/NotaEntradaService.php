@@ -212,13 +212,17 @@ if ($request->hasAttribute("BotonD") && $request->getAttribute("BotonD") !== uti
             $Costo = $sanitize->sanitizeFloat("Costo");
             $Total = $Cantidad * $Costo;
 
-            $insertDetalle = "INSERT INTO ned (id,producto,cantidad,precio, total)
+            if (!empty($Producto)) {
+                $insertDetalle = "INSERT INTO ned (id,producto,cantidad,precio, total)
                             VALUES($cValVar, $Producto, $Cantidad, $Costo, $Total)";
 
-            if ($mysqli->query($insertDetalle)) {
-                $Msj = utils\Messages::RESPONSE_VALID_CREATE;
+                if ($mysqli->query($insertDetalle)) {
+                    $Msj = utils\Messages::RESPONSE_VALID_CREATE;
+                } else {
+                    $Msj = utils\Messages::RESPONSE_ERROR;
+                }
             } else {
-                $Msj = utils\Messages::RESPONSE_ERROR;
+                $Msj = "El producto ingresado no existe";
             }
         }
         $Return .= "&Msj=" . urlencode($Msj);
