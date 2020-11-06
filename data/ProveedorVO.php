@@ -25,7 +25,7 @@ class ProveedorVO {
     private $tipodepago = "Contado";
     private $limite = 0;
     private $codigo;
-    private $rfc;
+    private $rfc = "XAXX010101000";
     private $correo;
     private $numeroint;
     private $numeroext;

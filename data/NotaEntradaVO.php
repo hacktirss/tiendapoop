@@ -25,6 +25,8 @@ class NotaEntradaVO {
     private $egreso = 0;
     private $ordpago = 0;
     private $detalle = 0;
+    private $banco = 1;
+    private $formadepago = "01";
 
     function __construct() {
         
@@ -140,6 +142,22 @@ class NotaEntradaVO {
 
     function setDetalle($detalle) {
         $this->detalle = $detalle;
+    }
+    
+    function getBanco() {
+        return $this->banco;
+    }
+
+    function getFormadepago() {
+        return $this->formadepago;
+    }
+
+    function setBanco($banco) {
+        $this->banco = $banco;
+    }
+
+    function setFormadepago($formadepago) {
+        $this->formadepago = $formadepago;
     }
 
 }

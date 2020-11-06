@@ -49,11 +49,10 @@ class NotaEntradaDAO implements FunctionsDAO {
                 . "egreso, "
                 . "ordpago "
                 . ") "
-                . "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+                . "VALUES(?,CURRENT_DATE(),?,?,?,?,?,?,?,?,?,?)";
         if (($ps = $this->conn->prepare($sql))) {
-            $ps->bind_param("isssssssssii",
+            $ps->bind_param("issssssssii",
                     $objectVO->getCia(),
-                    $objectVO->getFecha_entra(),
                     $objectVO->getConcepto(),
                     $objectVO->getFechafac(),
                     $objectVO->getFactura(),
@@ -101,6 +100,8 @@ class NotaEntradaDAO implements FunctionsDAO {
             $objectVO->setEgreso($rs["egreso"]);
             $objectVO->setOrdpago($rs["ordpago"]);
             $objectVO->setDetalle($rs["sumDetalle"]);
+            $objectVO->setBanco($rs["banco"]);
+            $objectVO->setFormadepago($rs["formadepago"]);
         }
         return $objectVO;
     }
@@ -146,8 +147,10 @@ class NotaEntradaDAO implements FunctionsDAO {
      */
     public function retrieve($idObjectVO, $field = "id", $cia = 0) {
         $objectVO = new NotaEntradaVO();
-        $sql = "SELECT  " . self::TABLA . ".*, IFNULL(SUM(ned.total), 0) sumDetalle FROM " . self::TABLA . " 
+        $sql = "SELECT  " . self::TABLA . ".*, IFNULL(SUM(ned.total), 0) sumDetalle, egresos.banco, egresos.formadepago
+                FROM " . self::TABLA . " 
                 LEFT JOIN ned ON ne.id = ned.id 
+                LEFT JOIN egresos ON ne.id = egresos.entradaid
                 WHERE " . self::TABLA . "." . $field . " = '" . $idObjectVO . "'";
         //error_log($sql);
         if (($query = $this->conn->query($sql)) && ($rs = $query->fetch_assoc())) {

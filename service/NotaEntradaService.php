@@ -1,6 +1,7 @@
 <?php
 
 #Librerias
+include_once ("data/OrdenPagoDAO.php");
 include_once ("data/NotaEntradaDAO.php");
 include_once ("data/EgresoDAO.php");
 include_once ("data/ProductoDAO.php");
@@ -17,8 +18,8 @@ $CiaSesion = getSessionCia();
 $nameSession = "moduloEntradasPro";
 
 if ($request->hasAttribute("id") && $request->getAttribute("id") === "NUEVO") {
-    utils\HTTPUtils::setSessionBiValue($nameSession, DETALLE, NULL);
-    header("Location: egresos.php?criteria=ini&returnLink=nota_pro_ee.php&backLink=nota_pro_e.php");
+    utils\HTTPUtils::setSessionBiValue($nameSession, DETALLE, $request->getAttribute("id"));
+    //header("Location: egresos.php?criteria=ini&returnLink=nota_pro_ee.php&backLink=nota_pro_e.php");
 }
 
 if ($request->hasAttribute("busca")) {
@@ -29,9 +30,62 @@ $cValVar = utils\HTTPUtils::getSessionBiValue($nameSession, DETALLE);
 
 $objectDAO = new NotaEntradaDAO();
 $egresoDAO = new EgresoDAO();
+$ordenDAO = new OrdenPagoDAO();
 
 if ($request->hasAttribute("Boton") && $request->getAttribute("Boton") !== utils\Messages::OP_NO_OPERATION_VALID) {
     $Msj = utils\Messages::MESSAGE_NO_OPERATION;
+
+
+    /* Bloque para crear la Orden de Pago */
+
+    $objectOrdenVO = new OrdenPagoVO();
+    $objectOrdenVO->setCia($UsuarioSesion->getCia());
+    if (is_numeric($sanitize->sanitizeInt("busca"))) {
+        // TODO Validar el retrieve
+        $objectOrdenVO = $ordenDAO->retrieve($sanitize->sanitizeInt("Ordpago"), "id", $UsuarioSesion->getCia());
+
+        $objectOrdenVO->setProveedor($sanitize->sanitizeInt("Proveedor"));
+        $objectOrdenVO->setConcepto($sanitize->sanitizeString("Concepto"));
+        $objectOrdenVO->setCotizacion($sanitize->sanitizeFloat("Importe"));
+        $objectOrdenVO->setImporte($sanitize->sanitizeFloat("Importe"));
+        $objectOrdenVO->setTotal($sanitize->sanitizeFloat("Importe"));
+    } else {
+        $objectOrdenVO->setId(IncrementaId($ordenDAO::TABLA));
+        $objectOrdenVO->setFecha(date("Y-m-d"));
+        $objectOrdenVO->setProveedor($sanitize->sanitizeInt("Proveedor"));
+        $objectOrdenVO->setConcepto($sanitize->sanitizeString("Concepto"));
+        $objectOrdenVO->setSolicito($UsuarioSesion->getId());
+        $objectOrdenVO->setCotizacion($sanitize->sanitizeFloat("Importe"));
+        $objectOrdenVO->setImporte($sanitize->sanitizeFloat("Importe"));
+        $objectOrdenVO->setTotal($sanitize->sanitizeFloat("Importe"));
+    }
+
+
+    /* Bloque para crear el egreso */
+
+    $objectEgresoVO = new EgresoVO();
+    $objectEgresoVO->setCia($UsuarioSesion->getCia());
+    if (is_numeric($sanitize->sanitizeInt("busca"))) {
+        // TODO Validar el retrieve
+        $objectEgresoVO = $egresoDAO->retrieve($sanitize->sanitizeInt("Egreso"), "id", $UsuarioSesion->getCia());
+
+        $objectEgresoVO->setBanco($sanitize->sanitizeInt("Banco"));
+        $objectEgresoVO->setFormadepago($sanitize->sanitizeString("Formadepago"));
+        $objectEgresoVO->setObservaciones($sanitize->sanitizeString("Concepto"));
+        $objectEgresoVO->setPagoreal($sanitize->sanitizeFloat("Importe"));
+    } else {
+        $objectEgresoVO->setId(IncrementaId($egresoDAO::TABLA));
+        $objectOrdenVO->setPagonumero($objectEgresoVO->getId());
+        $objectEgresoVO->setFecha(date("Y-m-d"));
+        $objectEgresoVO->setOrdendepago($objectOrdenVO->getId());
+        $objectEgresoVO->setBanco($sanitize->sanitizeInt("Banco"));
+        $objectEgresoVO->setFormadepago($sanitize->sanitizeString("Formadepago"));
+        $objectEgresoVO->setObservaciones($sanitize->sanitizeString("Concepto"));
+        $objectEgresoVO->setPagoreal($sanitize->sanitizeFloat("Importe"));
+    }
+
+
+    /* Bloque para generar la entrada */
 
     $objectVO = new NotaEntradaVO();
     $objectVO->setCia($UsuarioSesion->getCia());
@@ -39,27 +93,60 @@ if ($request->hasAttribute("Boton") && $request->getAttribute("Boton") !== utils
         $objectVO = $objectDAO->retrieve($sanitize->sanitizeInt("busca"), "id", $UsuarioSesion->getCia());
     }
 
-    $objectVO->setFecha_entra($sanitize->sanitizeString("Fecha_entra"));
     $objectVO->setProveedor($sanitize->sanitizeString("Proveedor"));
     $objectVO->setConcepto($sanitize->sanitizeString("Concepto"));
     $objectVO->setFechafac($sanitize->sanitizeString("Fechafac"));
     $objectVO->setFactura($sanitize->sanitizeString("Factura"));
     $objectVO->setImporte($sanitize->sanitizeString("Importe"));
-    $objectVO->setEgreso($sanitize->sanitizeInt("Egreso"));
-    $objectVO->setOrdpago($sanitize->sanitizeInt("Ordpago"));
 
 
     //error_log(print_r($objectVO, TRUE));
     try {
         if ($request->getAttribute("Boton") === utils\Messages::OP_ADD) {
-            $objectVO->setResponsable($UsuarioSesion->getId());
-            if (($id = $objectDAO->create($objectVO)) > 0) {
-                $Return = "nota_pro_ee.php?criteria=ini&busca=" . $id;
-                $Msj = utils\Messages::RESPONSE_VALID_CREATE;
+
+            /* Si la orden se ha craado, entonces se crea el pago */
+            if (($idOrden = $ordenDAO->create($objectOrdenVO)) > 0) {
+                error_log("La orden se ha generado con exito!");
+
+                /* Si el pago se ha creado, se crea la nota de entrada */
+                if (($idPago = $egresoDAO->create($objectEgresoVO)) > 0) {
+                    error_log("El pago se ha generado con exito!");
+
+                    $objectVO->setResponsable($UsuarioSesion->getId());
+                    if (($id = $objectDAO->create($objectVO)) > 0) {
+                        /* Si la entrada se ha creado, se actualiza el id de la entrada en el pago */
+                        
+                        $objectVO->setEgreso($objectEgresoVO->getId());
+                        $objectVO->setOrdpago($objectOrdenVO->getId());
+                        $objectEgresoVO->setEntradaid($id);
+                        if (!($egresoDAO->update($objectEgresoVO))) {
+                            error_log("Error al actualizar id del pago!");
+                        }
+
+                        $Return = "nota_pro_ee.php?criteria=ini&busca=" . $id;
+                        $Msj = utils\Messages::RESPONSE_VALID_CREATE;
+                    } else {
+                        $Msj = utils\Messages::RESPONSE_ERROR;
+                    }
+                } else {
+                    error_log("Error al generar el pago!");
+                    $Msj = utils\Messages::RESPONSE_ERROR;
+                }
             } else {
+                error_log("Error al generar la orden de compra!");
                 $Msj = utils\Messages::RESPONSE_ERROR;
             }
         } elseif ($request->getAttribute("Boton") === utils\Messages::OP_UPDATE) {
+            $Return = "nota_pro_ee.php?";
+
+            if (!($ordenDAO->update($objectOrdenVO))) {
+                error_log("Error al actualizar orden de pago!");
+            }
+            
+            if (!($egresoDAO->update($objectEgresoVO))) {
+                error_log("Error al actualizar pago o egreso!");
+            }
+
             if ($objectDAO->update($objectVO)) {
                 $Msj = utils\Messages::RESPONSE_VALID_UPDATE;
             } else {

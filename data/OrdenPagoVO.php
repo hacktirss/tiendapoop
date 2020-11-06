@@ -16,9 +16,9 @@ class OrdenPagoVO {
     private $fecha;
     private $proveedor;
     private $rubro = "Otros";
-    private $alias;
-    private $concepto;
-    private $solicito;
+    private $alias = "";
+    private $concepto = "";
+    private $solicito = "";
     private $cotizacion = 0;
     private $importe = 0;
     private $iva = 0;
@@ -26,9 +26,9 @@ class OrdenPagoVO {
     private $isr = 0;
     private $hospedaje = 0;
     private $total;
-    private $observaciones;
+    private $observaciones = "";
     private $pagonumero = 0;
-    private $status = "Abierta";
+    private $status = "Cerrada";
 
     function __construct() {
         

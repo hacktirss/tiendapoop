@@ -142,7 +142,7 @@ if (is_numeric($busca)) {
                                                         <div class="col-md-2">
                                                             <select name="Proveedorde" id="Proveedorde">
                                                                 <option value="Productos">Productos</option>
-                                                                <option value="Servicios">Servicios</option>
+<!--                                                                <option value="Servicios">Servicios</option>-->
                                                             </select>
                                                         </div>
                                                         <div class="col-md-2 align-right">Activo:</div>

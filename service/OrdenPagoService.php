@@ -41,7 +41,7 @@ if ($request->hasAttribute("Boton") && $request->getAttribute("Boton") !== utils
     $objectVO->setObservaciones($sanitize->sanitizeString("Observaciones"));
     $objectVO->setStatus($sanitize->sanitizeString("Status"));
 
-    error_log(print_r($objectVO, TRUE));
+    //error_log(print_r($objectVO, TRUE));
     try {
         if ($request->getAttribute("Boton") === utils\Messages::OP_ADD) {
             if (($id = $objectDAO->create($objectVO)) > 0) {

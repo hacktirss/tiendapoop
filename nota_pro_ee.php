@@ -40,15 +40,15 @@ $egresoDAO = new EgresoDAO();
 if (is_numeric($cValVar)) {
     $objectVO = $objectDAO->retrieve($cValVar, "id", $UsuarioSesion->getCia());
 } else {
-    $Egreso = $request->getAttribute("Egreso");
-    $egresoVO = $egresoDAO->retrieve($Egreso, "id", $UsuarioSesion->getCia());
-    $objectVO->setProveedor($egresoVO->getOrden_proveedor());
-    $objectVO->setConcepto($egresoVO->getOrden_concepto());
-    $objectVO->setImporte($egresoVO->getPagoreal());
+    // = $request->getAttribute("Egreso");
+    //$egresoVO = $egresoDAO->retrieve($Egreso, "id", $UsuarioSesion->getCia());
+    //$objectVO->setProveedor($egresoVO->getOrden_proveedor());
+    //$objectVO->setConcepto($egresoVO->getOrden_concepto());
+    //$objectVO->setImporte($egresoVO->getPagoreal());
     $objectVO->setFecha_entra(date("Y-m-d"));
     $objectVO->setFechafac(date("Y-m-d"));
-    $objectVO->setEgreso($Egreso);
-    $objectVO->setOrdpago($egresoVO->getOrdendepago());
+    //$objectVO->setEgreso($Egreso);
+    //$objectVO->setOrdpago($egresoVO->getOrdendepago());
 }
 
 $self = utils\HTTPUtils::getEnvironment()->getAttribute("PHP_SELF");
@@ -59,9 +59,6 @@ $self = utils\HTTPUtils::getEnvironment()->getAttribute("PHP_SELF");
     <head>
         <?php require_once "./config_main.php"; ?>
         <title><?= $Gcia ?></title> 
-        <link type="text/css" rel="stylesheet" media="screen" href="lib/predictive_styles.css"/>
-        <script type="text/javascript" src="js/jquery.autocomplete.js"></script>
-        <script type="text/javascript" src="lib/predictive_search.js"></script>
         <script>
             $(document).ready(function () {
                 var busca = "<?= $cValVar ?>";
@@ -73,15 +70,19 @@ $self = utils\HTTPUtils::getEnvironment()->getAttribute("PHP_SELF");
                     $("#Boton").val("Agregar");
                 } else {
                     $("#Boton").val("Actualizar");
+                    //$("#Banco").hide();
+                    //$("#Formadepago").hide();
                 }
 
                 $("#Id").html("<?= $cValVar ?>");
                 $("#Orden").html("<?= $objectVO->getOrdpago() ?>");
-                $("#Fecha_entra").val("<?= $objectVO->getFecha_entra() ?>");
+                $("#Fecha_entra").html("<?= $objectVO->getFecha_entra() ?>");
                 $("#Concepto").val("<?= $objectVO->getConcepto() ?>");
                 $("#Fechafac").val("<?= $objectVO->getFechafac() ?>");
                 $("#Factura").val("<?= $objectVO->getFactura() ?>");
                 $("#Proveedor").val("<?= $objectVO->getProveedor() ?>");
+                $("#Banco").val("<?= $objectVO->getBanco() ?>");
+                $("#Formadepago").val("<?= $objectVO->getFormadepago() ?>");
                 $("#Importe").val("<?= $objectVO->getImporte() ?>");
                 $("#Ordpago").val("<?= $objectVO->getOrdpago() ?>");
                 $("#Egreso").val("<?= $objectVO->getEgreso() ?>");
@@ -123,13 +124,14 @@ $self = utils\HTTPUtils::getEnvironment()->getAttribute("PHP_SELF");
                                                     </div>  
 
                                                     <div class="row no-gutters">
-                                                        <div class="col-3 align-right">Fecha:</div>
-                                                        <div class="col-3"><input type="date" name="Fecha_entra" id="Fecha_entra"></div>
+                                                        <div class="col-3 align-right">Fecha de captura:</div>
+<!--                                                        <div class="col-3"><input type="date" name="Fecha_entra" id="Fecha_entra"></div>-->
+                                                         <div class="col-3"><span id="Fecha_entra"></span></div>
                                                     </div>
 
                                                     <div class="row no-gutters">
                                                         <div class="col-3 align-right">Concepto:</div>
-                                                        <div class="col-9"><input type="text" name="Concepto" id="Concepto" onkeyup="mayus(this);" placeholder="Motivo de la orden"></div>
+                                                        <div class="col-9"><input type="text" name="Concepto" id="Concepto" onkeyup="mayus(this);" placeholder="Breve descripcion de la compra"></div>
                                                     </div>
 
                                                     <div class="row no-gutters">                                               
@@ -140,14 +142,27 @@ $self = utils\HTTPUtils::getEnvironment()->getAttribute("PHP_SELF");
                                                     </div>
 
                                                     <div class="row no-gutters">
-                                                        <div class="col-3 align-right">Num. Factura:</div>
+                                                        <div class="col-3 align-right"># Factura o Remisión:</div>
                                                         <div class="col-3"><input type="text" name="Factura" id="Factura" onkeyup="mayus(this);" placeholder="F-000"></div>
                                                         <div class="col-3 align-right">Fecha:</div>
                                                         <div class="col-3"><input type="date" name="Fechafac" id="Fechafac"></div>
                                                     </div>
+                                                    
+                                                     <div class="row no-gutters">                                               
+                                                        <div class="col-md-3 align-right">Banco:</div>
+                                                        <div class="col-md-9">
+                                                            <?php ListasCatalogo::getBancos("Banco", "required='required'"); ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row no-gutters">                                               
+                                                        <div class="col-md-3 align-right">Forma de pago:</div>
+                                                        <div class="col-md-9">
+                                                            <?php ListasCatalogo::getFormasDePago("Formadepago"); ?>
+                                                        </div>
+                                                    </div>
 
                                                     <div class="row no-gutters">
-                                                        <div class="col-3 align-right">Importe:</div>
+                                                        <div class="col-3 align-right">Importe de la compra:</div>
                                                         <div class="col-2"><input type="text" name="Importe" id="Importe" required="required"></div>
                                                     </div>
 
