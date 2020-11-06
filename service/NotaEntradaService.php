@@ -112,12 +112,12 @@ if ($request->hasAttribute("Boton") && $request->getAttribute("Boton") !== utils
                 if (($idPago = $egresoDAO->create($objectEgresoVO)) > 0) {
                     error_log("El pago se ha generado con exito!");
 
+                    $objectVO->setEgreso($objectEgresoVO->getId());
+                    $objectVO->setOrdpago($objectOrdenVO->getId());
                     $objectVO->setResponsable($UsuarioSesion->getId());
                     if (($id = $objectDAO->create($objectVO)) > 0) {
                         /* Si la entrada se ha creado, se actualiza el id de la entrada en el pago */
-                        
-                        $objectVO->setEgreso($objectEgresoVO->getId());
-                        $objectVO->setOrdpago($objectOrdenVO->getId());
+
                         $objectEgresoVO->setEntradaid($id);
                         if (!($egresoDAO->update($objectEgresoVO))) {
                             error_log("Error al actualizar id del pago!");
@@ -142,7 +142,7 @@ if ($request->hasAttribute("Boton") && $request->getAttribute("Boton") !== utils
             if (!($ordenDAO->update($objectOrdenVO))) {
                 error_log("Error al actualizar orden de pago!");
             }
-            
+
             if (!($egresoDAO->update($objectEgresoVO))) {
                 error_log("Error al actualizar pago o egreso!");
             }
