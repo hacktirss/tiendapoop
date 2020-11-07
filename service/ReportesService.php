@@ -508,3 +508,30 @@ $selectOrdenHeader = "
         FROM ordpagos 
         LEFT JOIN prv ON ordpagos.proveedor = prv.id 
         WHERE ordpagos.id = $busca";
+ 
+ /* Consulta para nota de entrada de productos*/
+
+$selectNotaEntrada = "
+        SELECT LPAD(ne.id,5,0) folio, ne.factura, ne.fechafac, ne.fecha_entra, 
+        IFNULL(authuser.uname,'Compras') responsable,
+        prv.nombre, prv.rfc, ne.cantidad 
+        FROM ne 
+        LEFT JOIN prv ON ne.proveedor = prv.id
+        LEFT JOIN authuser ON ne.responsable = authuser.id 
+        WHERE TRUE AND ne.id = $busca;";
+
+$selectNotaEntradaDetalle = "SELECT ned.*,inv.descripcion FROM ned,inv WHERE ned.producto = inv.id AND ned.id = $busca";
+
+ /* Consulta para nota de salida de productos*/
+
+$selectNotaSalida= "
+        SELECT ns.factura, ns.fecha, ns.responsable, LPAD(ns.id,5,0) folio,
+        cli.nombre, cli.rfc, ns.concepto 
+        FROM cli, ns
+        WHERE ns.cliente = cli.id AND ns.cia = cli.cia AND ns.id = $busca;";
+
+$selectNotaSalidaDetalle = "
+        SELECT nsd.producto, inv.descripcion, nsd.cantidad, nsd.costo, (nsd.cantidad * nsd.costo) total
+        FROM nsd 
+        LEFT JOIN inv ON nsd.producto = inv.id AND inv.cia = " . $UsuarioSesion->getCia() . " AND nsd.tipo = 1
+        WHERE nsd.id = $busca";

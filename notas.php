@@ -7,106 +7,99 @@ use com\softcoatl\utils as utils;
 
 require_once "./service/ReportesService.php";
 
-$Titulo = "Nota de salida";
+$Titulo = "Nota de venta";
 
-$selectEntrada = "SELECT ns.factura, ns.fecha, ns.responsable, ns.factura folio,
-        cli.nombre, cli.rfc, ns.concepto 
-        FROM cli, ns
-        WHERE ns.cliente = cli.id AND ns.cia = cli.cia AND ns.id = $busca;";
+$headerSql = $selectNotaSalida;
+$cSql = $selectNotaSalidaDetalle;
 
-$selectDetalleEntrada = "
-        SELECT IF(nsd.producto = 0, nsd.numero_serie, nsd.producto) producto,
-        IF(nsd.tipo = 2, CONCAT(nsd.marca, ' | ', nsd.modelo ), inv.descripcion) descripcion,
-        nsd.cantidad, nsd.costo
-        FROM nsd 
-        LEFT JOIN inv ON nsd.producto = inv.id AND inv.cia = " . $UsuarioSesion->getCia() . " AND nsd.tipo = 1
-        WHERE nsd.id = $busca";
+$header = utils\ConnectionUtils::execSql($headerSql);
+$registros = utils\ConnectionUtils::getRowsFromQuery($cSql);
 
-$He = utils\ConnectionUtils::execSql($selectEntrada);
-
-$rows = utils\ConnectionUtils::getRowsFromQuery($selectDetalleEntrada);
+$CiaSesion = getSessionCia();
 ?>
 
 <!DOCTYPE html>
 <html lang="es" xml:lang="es">
     <head>
-        <?php require_once "./config_reports.php"; ?>
+        <?php require_once "./config_reports_print.php"; ?>
         <title><?= $Gcia ?></title> 
-
+        <script>
+            $(document).ready(function () {
+                $("#busca").val("<?= $busca ?>");
+            });
+        </script>
+        <style>
+            @page { 
+                size: A4-Ticket; 
+            }
+            @media print {
+                .noPrint {
+                    display:none;
+                }
+            }
+        </style>
     </head>
 
-    <body>
-        <?php EncabezadoReportes() ?>
+    <!-- Set "A5", "A4" or "A3" for class name -->
+    <!-- Set also "landscape" if you need -->
+    <body class="A4-Ticket">
 
-        <div id="container">
-            <div id="Encabezado">
-                <table>
-                    <tbody>
-                        <tr>
-                            <td colspan="2">Folio: <?= $He["rfc"] . " | " . $He["nombre"] ?></td>
-                            <td align="left">Fecha: <?= $He["fecha"] ?></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">Concepto: <?= $He["concepto"] ?></td>
-                            <td>Factura: <?= $He["folio"] ?></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <!-- Each sheet element should have the class "sheet" -->
+        <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
 
-            <div id="Reportes">
-                <table width="95%">
-                    <thead>
-                        <tr>
-                            <th>Clave</th>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Precio</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <?php
-                        $Total = 0;
-                        foreach ($rows as $row) :
-                            ?>
-                            <tr>
-                                <td><?= $row["producto"] ?></td>
-                                <td><?= $row["descripcion"] ?></td>
-                                <td class="numero"><?= $row["cantidad"] ?></td>
-                                <td class="numero"><?= number_format($row["costo"], 2) ?></td>
-                                <td class="numero"><?= number_format($row["cantidad"] * $row["costo"], 2) ?></td>
-                            </tr>
-                            <?php
-                            $Total += $row["cantidad"] * $row["costo"];
-                        endforeach;
-                        ?>
-                    </tbody>
-
-                    <tfoot>
-                        <tr>
-                            <td colspan="4">Total</td>
-                            <td><?= number_format($Total, 2) ?></td>
-                        </tr>
-                    </tfoot>
-                </table>
-
-            </div>
-        </div>
-        <div id="Footer">
-            <form name="form1" class="oculto" method="post" action="">
-                <table width="95%"  align="center" class="form">
-                    <tbody>
-                        <tr>                
-                            <td style="text-align: center;">
-                                <span><input type="submit" name="Imprimir" value="Imprimir" onCLick="print()"></span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="sheet padding-10mm">
+            <form name="form1" method="get" action="" class="noPrint">
+                <div style="text-align: center;position: relative;">
+                    <input type="submit" name="Boton" class="nombre_cliente" value="Imprimir" onclick="print()">
+                    <input type="hidden" name="busca" id="busca">
+                </div>
             </form>
+            <div align="center" class="text" style="align-items: flex-start">
+                <table style="text-align: center" class="text" aria-hidden="true">                   
+                    <tr><td align="center"><img src="lib/logoPoop.png" style="width: 200px; height: 90px;" alt=""></td></tr>
+                    <tr><td align="center" class="TextosTitulos"><strong><?= $CiaSesion->getNombre() ?></strong></td></tr>                
+                    <tr><td align="center"><?= $CiaSesion->getDireccion() . " " . $CiaSesion->getNumeroext() ?></td></tr>
+                    <tr><td align="center"><?= $CiaSesion->getMunicipio() ?>, <?= $CiaSesion->getEstado() ?> Cp. <?= $CiaSesion->getCodigo() ?></td></tr>
+                    <tr><td align="center">Telefono: <?= $CiaSesion->getTelefono() ?></td></tr>
+                    <tr><td align="center">RFC: <?= $CiaSesion->getRfc() ?></td></tr>                             
+
+                    <tr><td align="left"><strong>Folio: <?= $header["folio"] ?></strong></td></tr>
+                    <tr><td align="left"><strong>Fecha venta <?= $header["fecha"] ?></strong></td></tr>
+                    <tr><td align="left">Fecha impresion <?= date("Y-m-d H:i:s") ?></strong></td></tr>
+                    <tr><td align="left"><strong><?= "Cliente: " . $header["nombre"] ?></strong></td></tr>
+
+                </table><br/>
+
+                <table style="text-align: center" class="text" aria-hidden="true">
+                    <tr>
+                        <td width="45%"><strong>Producto</td>
+                        <td align="right" width="15%"><strong>Cnt</td>
+                        <td align="right" width="20%"><strong>Precio</td>
+                        <td align="right" width="20%"><strong>Importe</td>
+                    </tr>
+
+                    <?php 
+                    $Total = 0;
+                    foreach ($registros as $vt) : ?>
+                        <tr>
+                            <td><strong><?= $Vt["producto"] ?></strong> <?= $vt["descripcion"] ?></td>
+                            <td align="right"><?= number_format($vt["cantidad"], 0) ?></td>
+                            <td align="right"><?= number_format($vt["costo"], 2) ?></td>
+                            <td align="right"><?= number_format($vt["total"], 2) ?></td>
+                        </tr>    
+                    <?php 
+                    $Total += $vt["total"];
+                    endforeach; ?>
+                   
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td align="right"> Total</td>
+                        <td align="right"><?= number_format($Total, 2) ?></td>
+                    </tr>
+
+                </table>
+            </div>
         </div>
     </body>
-
 </html>

@@ -19,7 +19,7 @@ $busca = $session->getSessionAttribute("criteria");
 $Msj = urldecode(utils\HTTPUtils::getRequest()->getAttribute("Msj"));
 
 $Id = 66;
-$Titulo = "Notas de salida";
+$Titulo = "Notas de venta";
 
 $conditions = "ns.cia = " . $usuarioSesion->getCia();
 if ($Filtro !== "Todos") {
@@ -83,7 +83,7 @@ $rLink = $session->getSessionAttribute("returnLink");
                             </td>
                             <td class="centrar">
                                 <?php if ($row["status"] === "Cerrada") : ?>
-                                    <a href=javascript:winuni("notas.php?busca=<?= $row["id"] ?>");><i class="icon fa fa-lg fa-print"></i>
+                                    <a href=javascript:winmin("notas.php?busca=<?= $row["id"] ?>");><i class="icon fa fa-lg fa-print"></i>
                                     <?php endif; ?>
                             </td>
                             <?php echo $paginador->formatRow(); ?>

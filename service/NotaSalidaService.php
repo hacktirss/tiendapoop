@@ -45,7 +45,6 @@ if ($request->hasAttribute("Boton") && $request->getAttribute("Boton") !== utils
     $objectVO->setConcepto($sanitize->sanitizeString("Concepto"));
     $objectVO->setObservaciones($sanitize->sanitizeString("Observaciones"));
     $objectVO->setCliente($sanitize->sanitizeString("Cliente"));
-    $objectVO->setFactura($sanitize->sanitizeString("Factura"));
 
     //error_log(print_r($objectVO, TRUE));
     try {

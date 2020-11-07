@@ -264,7 +264,7 @@ $self = utils\HTTPUtils::getEnvironment()->getAttribute("PHP_SELF");
                                                                 <div class="col-1"></div>
                                                                 <div class="col-2"><input type="submit" name="BotonD" value="Agregar"></div>
                                                             </div>                                                                                                                         
-                                                            <input type="hidden" name="Producto" value="<?= $Producto ?>">
+                                                            <input type="hidden" name="Producto" value="<?= $productoVO->getId() ?>">
                                                         <?php else : ?>
                                                             <div class="row no-gutters">
                                                                 <div class="col-9 align-left">

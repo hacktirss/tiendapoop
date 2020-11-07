@@ -1,177 +1,214 @@
 <?php
 #Librerias
 include_once ("lib/lib.php");
-include_once ("check.php");
+include_once ("check_reports.php");
 
-$link = conectarse();
-$busca = $_REQUEST[busca];
-$Fecha = date('Y-m-d H:m');
+use com\softcoatl\utils as utils;
 
-#Variables comunes;
-$Titulo = "Nota de entrada";
+require_once './service/ReportesService.php';
 
-$Filtro = $_REQUEST[Filtro];
-if ($Filtro == 'Si') {
-    $cWhere = ' existencia <> 0';
-} else {
-    $cWhere = " id <> '' ";
-}
+$Titulo = "Nota de entrada de productos";
 
-$CpoA = mysqli_query($link, "SELECT * FROM ned WHERE id=$busca");
+$headerSql = $selectNotaEntrada;
+$cSql = $selectNotaEntradaDetalle;
+
+$header = utils\ConnectionUtils::execSql($headerSql);
+$registros = utils\ConnectionUtils::getRowsFromQuery($cSql);
+
+//error_log(print_r($registros, TRUE));
+
+$registrosLandscape = 25;
+$registrosVertical = 40;
 ?>
 
 <!DOCTYPE html>
 <html lang="es" xml:lang="es">
     <head>
-        <?php require_once "./config_reports.php"; ?>
+        <?php require_once "./config_reports_print.php"; ?>
         <title><?= $Gcia ?></title> 
-
         <style>
-            html{
+            @page { 
+                size: A4 /*landscape*/; 
             }
-            body{
-                height: 98%;
-                width: 98%;
-                min-width: 900px;
-            }
-
-            #contenido{
-                height: 38%;
-                margin: 10px;
-                margin-bottom: -10px;
-                padding: 0px;
-                position: inherit;
-                max-height: available;
-                /*border: 1px solid gray;*/
-            }
-
-            #acuse{
-                height: 9%;
-                margin: 10px;
-                padding: 0px;
-                /*border: 1px solid gray;*/
-            }
-            #acuse table{
-                height: 100%;
-                width: 98%;
-                border-spacing: 1px;
-                border: 0px solid;
-                margin: auto;
-                border-spacing: 2px;
-            }
-            #acuse table th{
-                background-color: #C1C1C1;
-                height: 25px;
-            }
-        </style>
+        </style>        
     </head>
 
-    <body>
-        <div><?php contenido() ?></div>
-        <div><?php contenido() ?></div>
-        <div style="text-align: center" class="oculto">
-            <form method="" action="" onsubmit="print()">
-                <input type="submit" value="Imprimir">
-                <input type="hidden" name="busca" value="<?= $busca ?>">
-            </form>
+    <!-- Set "A5", "A4" or "A3" for class name -->
+    <!-- Set also "landscape" if you need -->
+    <body class="A4">
+        <div class="iconos">
+            <table aria-hidden="true">
+                <tr>
+                    <td style="text-align: left"><?= $Titulo ?></td>
+                    <td>&nbsp;</td>
+                    <td style="text-align: right;">
+
+                    </td>
+                    <td style="text-align: center;"><i onclick="print();" title="Imprimir" class="icon fa fa-lg fa-print" aria-hidden="true"></i></td>
+                </tr>
+            </table>
         </div>
-    </body>
-
-</html>
-<?php
-
-function contenido() {
-    global $Titulo, $link, $busca, $Gfdogrid, $Fecha;
-    Encabezado($Titulo);
-    $sql = "SELECT ne.factura,ne.fecha_entra,IFNULL(authuser.uname,'Compras') responsable,LPAD(IF(ne.entrada = 0,ne.id,ne.entrada),5,0) folio,
-            prv.nombre,prv.rfc,ne.cantidad,ne.fechafac 
-            FROM prv,ne left join authuser on ne.responsable=authuser.id 
-            WHERE ne.id='$busca' AND ne.proveedor=prv.id";
-    $HeA = mysqli_query($link, $sql) or die(mysql_error());
-    $He = mysqli_fetch_array($HeA);
-
-    $CpoA = mysqli_query($link, "SELECT ned.*,inv.descripcion FROM ned,inv WHERE ned.producto = inv.id AND  ned.id=$busca");
-    ?>
-    <div id="contenido">
-
-        <table align='center' width='95%' border='1px' cellspacing='0' cellpadding='1' class='texto_tablas'>
-            <tr class='texto_tablas'>
-                <td align='left'>Factura:  <b><?= $He[factura] ?></td>
-                <td>&nbsp;</td>
-                <td align='right'>Fecha: <b><?= $He[fecha_entra] ?></td>
-            </tr>
-            <tr class='texto_tablas'>
-                <td>Folio:  <b><?= $He[folio] ?></td>
-                <td>Fecha de Factura: <b><?= $He[fechafac] ?></td>
-                <td>Responsable: <b><?= $He[responsable] ?></td>
-            </tr>
-            <tr>
-                <td>Importe: <b> <?= $He[cantidad] ?></td>
-                <td colspan='2'>Provedor: <b><?php echo "$He[nombre] | $He[rfc]" ?></td>
-            </tr>
-
-        </table><br>
-
-
-        <table align='center' width='95%'  border='0' cellspacing='2' cellpadding='1' class='texto_tablas'>
-
-            <tr>
-                <th align='center'>Clave</th>
-                <th align='center'>Producto</th>
-                <th align='center' width='20'>Cantidad</th>
-                <th align='center'>Precio</th>
-                <th align='center'>Total</th>
-            </tr>
-
-            <tr><td colspan='5'><hr></td></tr>
+        <div id="TablaExcel">
+            <!-- Each sheet element should have the class "sheet" -->
+            <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
             <?php
-            while ($registro = mysqli_fetch_array($CpoA)) {
+            $nRng = 1;
+            $close = false;
+            $sheet = 0;
+            $total = 0;
+            if (count($registros) > 0) {
+                foreach ($registros as $registro) {
+                    if (($nRng - 1) % $registrosVertical == 0) {
+                        $close = false;
+                        $sheet++;
 
-                if (($nRng % 2) > 0) {
-                    $Fdo = 'FFFFFF';
-                } else {
-                    $Fdo = $Gfdogrid;
-                }    //El resto de la division;
+                        $ignore = "";
+                        if ($sheet > 1) {
+                            $ignore = "tableexport-ignore";
+                        }
+                        ?>
+                        <div class="sheet padding-10mm"> <!-- Abre hoja-->
+                            <?php EncabezadoReportes() ?>
 
+                            <div id="TablaDatosHeader">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td>Factura: <?= $header["factura"] ?></td>
+                                            <td></td>
+                                            <td>Fecha de impresion: <?= date("Y-m-d H:i:s") ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Folio: <?= $header["folio"] ?></td>
+                                            <td>Fecha factura: <?= $header["fechafac"] ?></td>
+                                            <td>Responsable: <?= $header["responsable"] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Proveedor: <?= $header["nombre"] ?></td>
+                                            <td>RFC: <?= $header["rfc"] ?></td> 
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
 
-                echo "<tr class='texto_tablas' bgcolor='$Fdo' onMouseOver=this.style.backgroundColor='$Gbarra';this.style.cursor='hand' onMouseOut=this.style.backgroundColor='$Fdo';>";
-                echo "<td align='center'> $registro[producto]</td>";
-                echo "<td> $registro[descripcion]</td>";
-                echo "<td align='right'> $registro[cantidad]</td>";
-                echo "<td align='right'> " . number_format($registro[precio], '4') . "</td>";
-                echo "<td align='right'> " . number_format($registro[precio] * $registro[cantidad], '4') . "</td>";
-                $Total += $registro[precio] * $registro[cantidad];
-                echo "</tr>";
-                $nRng++;
+                            <div id="TablaDatosReporte"> <!-- Abre div estilos-->
+                                <div style="padding-top: 10px;">
+                                    <div style="padding-bottom: 10px;"></div>
+                                    <table aria-hidden="true"> <!-- Abre tabla 1-->
+                                        <thead>
+                                            <tr class="<?= $ignore ?>">
+                                                <td>#</td>
+                                                <td>Clave</td>
+                                                <td>Producto</td>
+                                                <td>Cantidad</td>
+                                                <td>Precio</td>
+                                                <td>Total</td>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <?php
+                                        }
+                                        ?>
+                                        <tr>
+                                            <td><?= $nRng ?></td>
+                                            <td class="numero tableexport-number"><?= $registro["producto"] ?></td>
+                                            <td class="texto tableexport-string"><?= $registro["descripcion"] ?></td>
+                                            <td class="texto tableexport-string"><?= $registro["cantidad"] ?></td>
+                                            <td class="numero tableexport-number"><?= $registro["precio"] ?></td>
+                                            <td class="numero tableexport-number"><?= $registro["total"] ?></td>
+                                        </tr>
+
+                                        <?php
+                                        //error_log("Modulo $nRng: " . ($nRng % $registrosVertical));
+                                        if ($nRng % $registrosVertical == 0) {
+                                            if (($nRng - 1) == count($registros)) {
+                                                
+                                            } else {
+                                                echo ''
+                                                . '</tbody>'
+                                                . '</table> <!-- Cierra tabla 1 si hay mas de 25 registros-->'
+                                                . '</div>'
+                                                . '</div> <!-- Cierra div estilos-->'
+                                                . '</div> <!-- Cierra hoja si hay mas de 25 registros-->';
+                                                $close = true;
+                                            }
+                                        }
+                                        $nRng++;
+                                        $total += $registro["total"];
+                                    }
+                                } else {
+                                    echo '<div class="sheet padding-10mm"> <!-- Abre hoja-->';
+                                    EncabezadoReportes();
+
+                                    echo '<div id="TablaDatosHeader">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <td>Folio: ' . $busca . '</td>
+                                                        <td>Estacion: ' . $header["estacion"] . '</td>
+                                                        <td>Fecha: ' . $header["fecha"] . '</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Concepto:  ' . $header["concepto"] . '</td>
+                                                        <td>Factura:  ' . $header["factura"] . '</td>
+                                                        <td>Responsable: ' . $header["responsable"] . '</td>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+
+                                        <div id="TablaDatosReporte"> <!-- Abre div estilos-->
+                                            <div style="padding-top: 10px;">
+                                                <div style="padding-bottom: 10px;"></div>
+                                                    <table aria-hidden="true"> <!-- Abre tabla 1-->
+                                                    <thead>
+                                                        <tr class="<?= $ignore ?>">
+                                                            <td>#</td>
+                                                            <td>Clave</td>
+                                                            <td>Producto</td>
+                                                            <td>Cantidad</td>
+                                                            <td>Precio</td>
+                                                            <td>Total</td>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>';
+                                }
+
+                                if (!$close) {
+                                    ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5">Total</td>
+                                        <td class="numero tableexport-number"><?= $total ?></td>
+                                    </tr>
+                                </tfoot>
+                            </table> <!-- Cierra tabla 1 si hay menos de 25 registros-->                            
+                        </div>
+                        <div id="acuse">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td>Observaciones</td>
+                                        <td>Nombre y Firma</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>                               
+                    </div> <!-- Cierra div estilos-->
+                </div> <!-- Cierra hoja si hay mas de 25 registros-->
+                <?php
             }
             ?>
-        </table>
-        <table align='center' width='95%' border='0' cellspacing='0' cellpadding='1' class='texto_tablas'>
-            <tr class='texto_tablas' height='25' background='lib/bartit2.gif' align='right'>
-                <td colspan='2'></td>
-                <td><b>Total ---></td>
-                <td><b><?= number_format($Total, '2') ?></td>
-            </tr>
-        </table>
-    </div>
-    <div id="acuse">
-        <?php acuse() ?>
-    </div>
-    <?php
-}
-
-function acuse() {
-    ?>
-    <table>
-        <tr align='center' class='texto_tablas' height='20'>
-            <th>Observaciones</th>
-            <th>Nombre y Firma</th>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-    </table>
-    <?php
-}
-?>
+        </div>
+    </body>
+</html>     

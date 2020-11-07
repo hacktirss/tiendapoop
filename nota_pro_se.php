@@ -13,7 +13,7 @@ $request = utils\HTTPUtils::getRequest();
 $UsuarioSesion = getSessionUsuario();
 
 $Id = 100;
-$Titulo = "Nota de salida de equipos y producto detalle";
+$Titulo = "Nota de venta detalle";
 
 $nameSession = "moduloSalidasEqDetalle";
 $arrayFilter = array();
@@ -23,8 +23,8 @@ $Msj = urldecode(utils\HTTPUtils::getRequest()->getAttribute("Msj"));
 $conditions = " nmd.id = '$cValVar' AND nmd.id > 0 ";
 
 $paginador = new Paginador($Id,
-        "nmd.marca, IF(nmd.producto > 0 AND nmd.tipo = 1, inv.descripcion,nmd.modelo) modelo, 
-         nmd.numero_serie, nmd.cantidad, nmd.costo, (nmd.cantidad * nmd.costo) precio",
+        "IF(nmd.producto > 0 AND nmd.tipo = 1, inv.descripcion,nmd.modelo) modelo, 
+         nmd.cantidad, nmd.costo, (nmd.cantidad * nmd.costo) precio",
         "LEFT JOIN inv ON nmd.producto = inv.id AND inv.cia = " . $UsuarioSesion->getCia(),
         "",
         "$conditions",
@@ -152,12 +152,7 @@ $self = utils\HTTPUtils::getEnvironment()->getAttribute("PHP_SELF");
                                                         <div class="col-md-9">
                                                             <?php ListasCatalogo::getClientes("Cliente", " required='required'"); ?>
                                                         </div>
-                                                    </div>
-
-                                                    <div class="row no-gutters">
-                                                        <div class="col-3 align-right">Num. Factura:</div>
-                                                        <div class="col-3"><input type="text" name="Factura" id="Factura" onkeyup="mayus(this);" placeholder="F-000"></div>
-                                                    </div>
+                                                    </div>                                                    
 
                                                     <div class="row no-gutters">
                                                         <div class="col-3 align-right">Importe de la salida:</div>
@@ -264,8 +259,17 @@ $self = utils\HTTPUtils::getEnvironment()->getAttribute("PHP_SELF");
                                                             </div>
 
                                                             <div class="row no-gutters">
+                                                                <div class="col-2 align-right">Mayoreo:</div>
+                                                                <div class="col-1"><span>$<?= number_format($productoVO->getMayoreo(), 2) ?></span></div>
+                                                                <div class="col-2 align-right">Menudeo:</div>
+                                                                <div class="col-1"><span>$<?= number_format($productoVO->getMenudeo(), 2) ?></span></div>
+                                                                <div class="col-2 align-right">Pub. Gral:</div>
+                                                                <div class="col-1"><span>$<?= number_format($productoVO->getPrecio(), 2) ?></span></div>
+                                                            </div>
+
+                                                            <div class="row no-gutters">
                                                                 <div class="col-3 align-right">Cantidad:</div>
-                                                                <div class="col-1"><input type="text" name="Cnt" min="1" value="1"></div>                                                                    
+                                                                <div class="col-1"><input type="number" name="Cnt" min="1" value="1" autofocus="true"></div>                                                                    
                                                                 <div class="col-3 align-right">Precio unitario:</div>
                                                                 <div class="col-1"><input type="text" name="Costo" placeholder=" $" value="<?= $productoVO->getPrecio() ?>"></div>
                                                                 <div class="col-1"></div>
@@ -276,7 +280,7 @@ $self = utils\HTTPUtils::getEnvironment()->getAttribute("PHP_SELF");
                                                             <div class="row no-gutters">
                                                                 <div class="col-2 align-right">Producto:</div>
                                                                 <div class="col-8">
-                                                                    <input type="text" placeholder="Producto a buscar por descripcion" name="Producto" id="autocompleteP">
+                                                                    <input type="text" placeholder="Producto a buscar por descripcion" name="Producto" id="autocompleteP" autofocus="true">
                                                                     <div id="autocomplete-suggestions"></div>
                                                                 </div>
                                                                 <div class="col-2"><input type="submit" name="BotonP" value="Enviar"></div>
@@ -286,9 +290,9 @@ $self = utils\HTTPUtils::getEnvironment()->getAttribute("PHP_SELF");
                                                     </div>
                                                 </td>
                                             </tr>
-                                            
+
                                         <?php endif; ?>
-                                            
+
                                         <tr>
                                             <td colspan="100%">
                                                 <p style="text-align: center;color: red; font-weight: bold;"><?= $Msj ?></p>
