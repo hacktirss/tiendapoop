@@ -19,7 +19,7 @@ $GRetencionIva = .1067;       // lo mando en factor el 10.67%
 <link rel="stylesheet" type="text/css" media="screen" href="css/estilos_colores.css?sum=<?= md5_file("css/estilos_colores.css") ?>"/>
 <link rel="stylesheet" type="text/css" media="screen" href="css/estilos_reportes_print.css?sum=<?= md5_file("css/estilos_reportes_print.css") ?>">
 <link rel="stylesheet" type="text/css" media="screen" href="fonts-awesome/css/font-awesome.min.css"/>
-<link rel="stylesheet" type="text/css" media="screen" href="css/normalize.min.css?sum=<?= md5_file("css/normalize.min.css") ?>">
+<!--<link rel="stylesheet" type="text/css" media="screen" href="css/normalize.min.css?sum=<?= md5_file("css/normalize.min.css") ?>">-->
 <link rel="stylesheet" type="text/css" media="screen" href="css/paper.css?sum=<?= md5_file("css/paper.css") ?>">
 
 <script type="text/javascript" src="js/jquery-1.10.2.js"></script>

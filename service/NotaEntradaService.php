@@ -202,14 +202,18 @@ if ($request->hasAttribute("Boton") && $request->getAttribute("Boton") !== utils
     header("Location: $Return");
 }
 
-if ($request->hasAttribute("BotonD") && $request->getAttribute("BotonD") !== utils\Messages::OP_NO_OPERATION_VALID) {
+if ($request->hasAttribute("BotonD")) {
     $Msj = utils\Messages::MESSAGE_NO_OPERATION;
     $Return = "nota_pro_ee.php?";
     try {
-        if ($request->getAttribute("BotonD") === utils\Messages::OP_ADD) {
-            $Producto = $sanitize->sanitizeInt("Producto");
-            $Cantidad = $sanitize->sanitizeInt("Cnt");
-            $Costo = $sanitize->sanitizeFloat("Costo");
+        if ($request->getAttribute("BotonD") === utils\Messages::OP_NO_OPERATION_VALID) {
+            $Prd = trim(explode("|", $request->getAttribute("Producto"))[0]);
+            $productoDAO = new ProductoDAO();
+            $productoVO = $productoDAO->retrieve($Prd, "codigo", $UsuarioSesion->getCia());
+
+            $Producto = $productoVO->getId();
+            $Cantidad = 1;
+            $Costo = $productoVO->getCosto();
             $Total = $Cantidad * $Costo;
 
             if (!empty($Producto)) {
